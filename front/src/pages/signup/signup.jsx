@@ -10,6 +10,9 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [incorrect, setIncorrect] = useState(null); // New state variable for error
+
   const navigate = useNavigate();
 
   const handleShowPassword = () => {
@@ -20,8 +23,9 @@ export default function Signup() {
     return /\S+@\S+\.\S+/.test(email);
   };
 
-  const isValidPassword = (password) => { // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
-    return password.length >= 6; 
+  const isValidPassword = (password) => {
+    // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
+    return password.length >= 6;
   };
 
   const handleSignup = async (e) => {
@@ -29,12 +33,12 @@ export default function Signup() {
 
     // Validation côté client
     if (!isValidEmail(email)) {
-      console.error("L'email n'est pas valide");
+      setIncorrect("Email invalide"); // Set error message
       return;
     }
 
     if (!isValidPassword(password)) {
-      console.error("Le mot de passe doit contenir au moins 6 caractères");
+      setIncorrect("Le mot de passe doit contenir au moins 6 caractères"); // Set error message
       return;
     }
 
@@ -44,17 +48,18 @@ export default function Signup() {
         email,
         password,
       });
-      
-      navigate("/login");
+
+      if (response.ok) {
         console.log("Inscription réussie");
-      // if (response.status === 200) {
-      //   console.log("Inscription réussie");
-      //   navigate("/login");
-      // } else {
-      //   console.error("Erreur lors de l'inscription");
-      // }
+        navigate("/login"); // Redirige vers la page de connexion après l'inscription
+      } else {
+        console.error("Erreur lors de l'inscription");
+      }
     } catch (error) {
-      console.error("Erreur lors de la requête", error.response?.data || error.message);
+      console.error(
+        "Erreur lors de la requête",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -103,6 +108,8 @@ export default function Signup() {
           </div>
           <button type="submit">Continuer</button>
         </form>
+        {incorrect && <div className="incorrect">{incorrect}</div>}{" "}
+        {/* On affiche un message d'erreur si le login a échoué */}
         <div className="haveAccount">
           <p>Déjà un compte ?</p>
           <Link to="/login">Connectez-vous</Link>

@@ -42,7 +42,8 @@
 
             &:hover {
                 cursor: pointer;
-                transform: scale(0.95);
+                // transform: scale(0.95);
+                transform: translateY(-2vh);    
             }
         }
     }

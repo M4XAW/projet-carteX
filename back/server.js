@@ -51,11 +51,11 @@ app.post('/api/login', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM Utilisateurs WHERE Email = ?", [req.body.email]);
+        const rows = await conn.query("SELECT * FROM users WHERE Email = ?", [req.body.email]);
         if (rows.length == 0) {
             res.status(404).send('Utilisateur non trouvé');
         } else {
-            const match = await bcrypt.compare(req.body.password, rows[0].MotDePasse);
+            const match = await bcrypt.compare(req.body.password, rows[0].password);
             if (match) {
                 res.json(rows[0]);
             } else {
