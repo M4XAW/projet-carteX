@@ -1,10 +1,11 @@
-.home {
+.homePage {
     padding: 3vh 7vh;
     min-height: 90vh;
     width: 100%;
 
     .filter {
-        margin: 1vh;
+        display: flex;
+        margin-bottom: 3vh;
         width: 30%;
 
         .search {
@@ -26,16 +27,33 @@
         }
     }
 
-    .products {
+    .cardContainer {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         align-items: center;
         height: 100%;
         width: 100%;
+        gap: 2vh;
 
-        .noResult {
-            color: var(--white);
-            padding: 2.2vh;
+        img {
+            height: 50vh;
+            transition: transform 0.3s ease;
+
+            &:hover {
+                cursor: pointer;
+                transform: scale(0.95);
+            }
         }
     }
+
+    .noResult {
+        color: var(--white);
+        padding: 2.2vh;
+    }
+
+    .card > * {
+        color: var(--white);
+    }
 }
+

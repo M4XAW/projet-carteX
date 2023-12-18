@@ -54,7 +54,7 @@
       <div className="login">
         <div className="containerLogin">
           <form onSubmit={handleLogin}>
-            <h2 className="title">Login</h2>
+            <h2 className="title">Connexion</h2>
             <p>Connectez-vous à votre compte</p>          
             <label htmlFor="email">Email</label>
             <input

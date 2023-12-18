@@ -2,19 +2,20 @@ import './App.scss';
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './components/header/header';
-import Login from './pages/login/login';
-import Register from './pages/register/register';
-import Error from './pages/error/error';
 import Footer from './components/footer/footer';
-import Cards from './pages/cards/cards';
+import Home from './pages/home/home';
+import Login from './pages/login/login';
+import Register from './pages/signup/signup';
+import Error from './pages/error/error';
+import Card from './pages/card/card';
 
 function App() {
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Cards />} />
-        <Route path="/cards:id" element={<Cards />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/card/:id" element={<Card />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Error />} />

@@ -1,0 +1,18 @@
+.cardPage {
+  display: flex;
+  justify-content: space-between;
+  // align-items: center;
+  padding: 7vh;
+  min-height: 90vh;
+  width: 100%;
+
+  .cardImage {
+    height: 80%;
+  }
+
+  .cardInfos {
+    color: var(--white);
+    padding-left: 5vh;
+    width: 100%;
+  }
+}

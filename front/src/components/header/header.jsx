@@ -1,40 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./header.scss";
 
 export default function Header() {
-  const [isConnected, setIsConnected] = useState(false);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Vérification de la présence de l'ID utilisateur dans le localStorage
-    console.log("connecté ?");
-    const userIsConnected = localStorage.getItem("userId") !== null;
-    setIsConnected(userIsConnected);
-  }, []);
-
-  const handleLogout = () => {
-    console.log("Déconnexion");
-
-    // Supprimer l'ID utilisateur du localStorage
-    localStorage.removeItem("userId");
-
-    setIsConnected(false);
-
-    // Rediriger l'utilisateur vers la page de connexion, par exemple
-    navigate("/login");
-  };
-
   return (
     <header>
       <Link className="logo" to="/">
-        Yu-Gi-Oh!
+        <img src="https://occ-0-2794-2219.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABdpYalFU9SD9K6dNwu9SlKsNaQ3AIGWFrN_uDy6R7N3TS5DHIatIETtgeqwC0kM01zJyor2znGql_ixTWzVueA-GllV7Hn03ygETN_Nd7oZA.png?r=81f" alt="logo" />
       </Link>
       <nav>
         <ul>
           {/* Si l'utilisateur n'est pas connecté */}
-          {!isConnected ? (
             <>
               <li>
                 <Link to="/login">Connexion</Link>
@@ -43,13 +19,13 @@ export default function Header() {
                 <Link to="/register">Inscription</Link>
               </li>
             </>
-          ) : (
-            <>
+          {/* ) : ( */}
+            {/* <>
               <li>
-                <Link to="/library">Mes jeux</Link>
+                <Link to="/">Cartes</Link>
               </li>
               <li>
-                <Link className="caddie" to="/cart"></Link>
+                <Link to="/">Compte</Link>
               </li>
               <li>
                 <Link
@@ -58,8 +34,8 @@ export default function Header() {
                   onClick={handleLogout}
                 ></Link>
               </li>
-            </>
-          )}
+            </> */}
+          {/* )} */}
         </ul>
       </nav>
     </header>

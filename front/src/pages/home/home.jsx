@@ -1,40 +1,69 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
 import "./home.scss";
 
 export default function Home() {
+  const [cards, setCards] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    displayCards();
+  }, []);
+
+  const displayCards = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/api/cards");
+      setCards(response.data);
+    } catch (error) {
+      console.error("Erreur lors de la récupération des cartes:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value.toLowerCase());
+  };
+
+  const filteredCards = searchTerm
+    ? cards.filter((card) =>
+        card.name.toLowerCase().includes(searchTerm)
+      )
+    : cards;
+
   return (
-    <main className="home">
-      {/* <div className="filter">
+    <div className="homePage">
+      <div className="filter">
         <input
           type="search"
           name="search"
           className="search"
           value={searchTerm}
           onChange={handleSearchChange}
-          placeholder="Rechercher un jeu"
+          placeholder="Rechercher"
         />
-      </div> */}
-      <div className="products">
-        {/* {loading ? (
+      </div>
+      <div className="cardContainer">
+        {loading ? (
           <p>Chargement...</p>
         ) : (
-          products.map((article) => (
-            <Product
-              key={article.id}
-              id={article.id}
-              image={article.images}
-              titre={article.titre}
-              description={article.description}
-              plateforme={article.plateforme}
-              price={article.prix}
-            />
+          filteredCards.map((card) => (
+            <div key={card.id} className="card">
+              <Link to={`/card/${card.id}`}>
+                <img src={card.image_url} alt={card.name} />
+              </Link>
+            </div>
           ))
-        )} */}
+        )}
 
-        {/* {products.length === 0 && (
-          <p className="noResult">Aucun jeu trouvé. Veuillez essayer un autre terme de recherche.</p>
-        )} */}
+        {filteredCards.length === 0 && (
+          <p className="noResult">
+            Aucune carte trouvée. Veuillez essayer un autre terme de recherche.
+          </p>
+        )}
       </div>
-    </main>
+    </div>
   );
 }

@@ -4,7 +4,7 @@
     align-items: center;
     min-height: 90vh;
     width: 100%;
-    background-image: url(https://images.alphacoders.com/563/563020.jpg);
+    background-image: url(../../assets/images/background-login.jpg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -18,7 +18,7 @@
 
         form {
             .title {
-                color: var(--blue);
+                color: var(--red);
                 font-size: 3vh;
                 margin-bottom: 0.5vh;
             }
@@ -57,8 +57,8 @@
                 height: 5vh;
                 width: 100%;
                 color: var(--white);
-                background-color: var(--blue);
-                border-color: var(--border-blue);
+                background-color: var(--red);
+                border-color: var(--border-red);
                 border-radius: 1vh;
                 font-size: 1.6vh;
                 outline: none;
@@ -67,7 +67,7 @@
                 user-select: none;
 
                 &:hover {
-                    background-color: var(--border-blue);
+                    background-color: var(--border-red);
                 }
             }
 
@@ -112,14 +112,14 @@
             }
 
             a {
-                color: var(--blue);
+                color: var(--red);
                 font-size: 1.5vh;
                 font-weight: 700;
                 text-decoration: none;
                 transition: all 0.3s ease;
 
                 &:hover {
-                    color: var(--border-blue);
+                    color: var(--border-red);
                     text-decoration: underline;
                 }
             }
