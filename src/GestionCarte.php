@@ -7,7 +7,7 @@ Class card {
     private $type;
     private $image;
     private $race;
-    private $setname;
+    private $SetName;
     private $cardarchetype;
     private $setcode;
     private $setrarity;
@@ -50,7 +50,7 @@ public function race(){
     return $this->race;
 }
 
-public function setname(){
+public function SetName(){
     return $this->setname;
 }
 
@@ -70,6 +70,9 @@ public function setId($id) {
     $this->id = $id;
 }
 
+public function setName($name) {
+    $this->name = $name;
+}
 
 
 public function setDescription($description) {
@@ -88,7 +91,7 @@ public function setrace($race){
     $this->race = $race;
 }
 
-public function setsetname($setname){
+public function setSetName($setname){
     $this->setname = $setname;
 }
 
