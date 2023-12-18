@@ -1,8 +1,8 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-require_once('src/Carte.php');
-require_once('src/CarteManager.php');
+include_once '../src/GestionCarteManager.php';
+
 
 class CarteManagerTest extends TestCase {
     private $pdo;
