@@ -43,6 +43,59 @@ class Card {
         $this->Set_Price = $Set_Price;
         $this->Image_URL = $Image_URL;
     }
+
+    public function getID_Carte() {
+        return $this->ID_Carte;
+    }
+
+    public function getNom() {
+        return $this->Nom;
+    }
+
+    public function getType() {
+        return $this->Type;
+    }
+
+    public function getFrame_Type() {
+        return $this->Frame_Type;
+    }
+
+    public function getDescription() {
+        return $this->Description;
+    }
+
+    public function getRace() {
+        return $this->Race;
+    }
+
+    public function getArchetype() {
+        return $this->Archetype;
+    }
+
+    public function getSet_Name() {
+        return $this->Set_Name;
+    }
+
+    public function getSet_Code() {
+        return $this->Set_Code;
+    }
+
+    public function getSet_Rarity() {
+        return $this->Set_Rarity;
+    }
+
+    public function getSet_Rarity_Code() {
+        return $this->Set_Rarity_Code;
+    }
+
+    public function getSet_Price() {
+        return $this->Set_Price;
+    }
+
+    public function getImage_URL() {
+        return $this->Image_URL;
+    }
+    
 }
 
 
