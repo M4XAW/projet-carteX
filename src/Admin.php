@@ -8,9 +8,7 @@ class CarteManager
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
     }
-    public function createCarte(Carte $carte) {
-        $this->pdo->exec('');
-    }
+  
     public function getCarteById($id) {
         $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = :id");
         $stmt->execute(['id' => $id]);
@@ -25,6 +23,7 @@ class CarteManager
         return $carte;
 
     }
+
     public function updateCarte(Carte $carte) {
         $this->pdo->exec('');
         $stmt = $this->pdo->prepare(" UPDATE FROM cards WHERE id = :id");
@@ -32,6 +31,18 @@ class CarteManager
         $carte = $stmt->fetch(PDO::FETCH_ASSOC);
         return $carte;
     }
+    public function PostCarte(Carte $carte) {
+    $sql = "INSERT INTO cartes (id, name, description) VALUES (:id, :name, :description)";
+    $stmt = $this->pdo->prepare($sql);
+    $stmt->execute([
+        'id' => $carte->getId(),
+        'name' => $carte->getName(),
+        'description' => $carte->getDescription()
+    ]);
+    return $carte;
+}
+
+
 
 }
 
