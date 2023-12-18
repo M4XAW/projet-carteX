@@ -16,3 +16,20 @@ const pool = mariadb.createPool({
     password: process.env.DB_PWD,
 })
 
+app.get('/api/cards', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT * FROM Cartes"); // Assurez-vous que cette requête correspond à la structure de votre table
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la récupération des données');
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.listen(8000, () => {
+    console.log("Serveur a l'ecoute");
+})
