@@ -13,6 +13,7 @@ composer.json
 #Ignore composer.lock
 composer.lock
 
-#Ignore le dossier config
+#Ignore le dossier config.php
+
 config.php
 ```
