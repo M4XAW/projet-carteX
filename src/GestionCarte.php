@@ -105,6 +105,8 @@ public function setsetrarity($setrarity){
 }
 
 
+
+
 }
 
 ?>
