@@ -8,7 +8,7 @@ class CarteManagerTest extends TestCase {
     private $pdo;
     private $carteManager;
 
-    protected function setUp(): void {
+    protected function setUp (): void {
         $this->pdo = new PDO('mysql:host=your_host;dbname=your_database', 'your_username', 'your_password');
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
