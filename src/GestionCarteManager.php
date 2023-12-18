@@ -1,28 +1,28 @@
 <?php
 
-class Cartes {
-    private $id;
-    private $name;
-    private $description;
-    private $type;
-    private $image;
-    private $race;
-    private $setname;
-    private $cardarchetype;
-    private $setcode;
-    private $setrarity;
+class CarteManager
+{
+    private $pdo;
 
-public function __construct($id, $name, $description, $type, $image, $race, $setname, $cardarchetype, $setcode, $setrarity) {
-    $this->id = $id;
-    $this->name = $name;
-    $this->description = $description;
-    $this->type = $type;
-    $this->image = $image;
-    $this->race = $race;
-    $this->setname = $setname;
-    $this->cardarchetype = $cardarchetype;
-    $this->setcode = $setcode;
-    $this->setrarity = $setrarity;
-    $this->cardarchetype = $cardarchetype;
+    public function __construct(PDO $pdo) {
+        $this->pdo = $pdo;
+    }
+
+
+    public function getCarteById($id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = :id");
+        $stmt->execute(['id' => $id]);
+        $carte = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $carte;
+    }
+    public function createCard($name, $description, $type, $image, $race, $setName, $cardArchetype, $setCode, $setRarity) {
+        $stmt = $this->pdo->prepare("INSERT INTO cards (name, description, type, image, race, SetName, card_archetype, card_set_code, card_set_rarity) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->execute([$name, $description, $type, $image, $race, $setName, $cardArchetype, $setCode, $setRarity]);
+        
+        return $this->pdo->lastInsertId();
+    }
+
+    
 }
-}   
+
+    
