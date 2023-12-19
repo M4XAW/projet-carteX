@@ -2,23 +2,17 @@ const express = require('express')
 const mariadb = require('mariadb')
 const bcrypt = require('bcrypt')
 // const jwt = require('jsonwebtoken');
-
 require('dotenv').config();
-
 const app = express()
 var cors = require('cors')
-
 app.use(express.json())
 app.use(cors())
-
-
 const pool = mariadb.createPool({
     host: process.env.DB_HOST,
     database: process.env.DB_DTB,
     user: process.env.DB_USER,
     password: process.env.DB_PWD,
 })
-
 app.get('/api/cards', async (req, res) => {
     let conn;
     try {
@@ -32,7 +26,6 @@ app.get('/api/cards', async (req, res) => {
         if (conn) conn.release();
     }
 });
-
 app.get('/api/card/:id', async (req, res) => {
     let conn;
     try {
@@ -59,6 +52,37 @@ app.delete('/api/card/:id', async (req, res) => {
         if (conn) conn.release();
     }
 });
+app.post('/api/card', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query(
+            "INSERT INTO cards (name, type, frame_type, description, race, archetype, set_name, set_code, set_rarity, set_rarity_code, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            [
+                req.body.name,
+                req.body.type,
+                req.body.frame_type,
+                req.body.description,
+                req.body.race,
+                req.body.archetype,
+                req.body.set_name,
+                req.body.set_code,
+                req.body.set_rarity,
+                req.body.set_rarity_code,
+                req.body.set_price,
+                req.body.image_url
+            ]
+        );
+
+        res.json({ id: rows.insertId, ...req.body });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la création des données');
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 
 app.post('/api/login', async (req, res) => {
     let conn;
@@ -117,7 +141,6 @@ app.post('/api/signup', async (req, res) => {
       if (conn) conn.release();
     }
 });
-
 app.listen(8000, () => {
     console.log("Started on PORT 8000")
 })
