@@ -14,6 +14,4 @@ composer.json
 composer.lock
 
 #Ignore le dossier config.php
-
 config.php
-```
