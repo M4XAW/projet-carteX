@@ -21,7 +21,7 @@ class CardManager {
         ");
     
         // Associe les valeurs aux paramètres dans la requête
-        $stmt->bindValue(':name', $card->getName());
+        $stmt->bindValue(':nom', $card->getname());
         $stmt->bindValue(':type', $card->getType());
         $stmt->bindValue(':frame_type', $card->getFrame_Type());
         $stmt->bindValue(':description', $card->getDescription());
@@ -43,39 +43,39 @@ class CardManager {
     
     
 
-    public function updateCard(Card $card) {
+    public function deleteCard($cardId) {
+        // Prépare la requête de suppression
+        $stmt = $this->pdo->prepare("
+            DELETE FROM Cards
+            WHERE id = :id
+        ");
+    
+        // Associe les valeurs aux paramètres dans la requête
+        $stmt->bindValue(':id', $cardId);
+    
+        // Exécute la requête de suppression
+        $stmt->execute();
+    }
+
+    public function updatecards($name, $type, $frame_type, $description, $race, $archetype, $set_name, $set_code, $set_rarity, $set_rarity_code, $set_price, $image_url) {
         try {
-            $stmt = $this->pdo->prepare("
-                UPDATE Cartes SET
-                   name = ?,
-                   type = ?,
-                   frame_type = ?,
-                   description= ?,
-                    race = ?,
-                    archetype = ?,
-                    set_name = ?,
-                    set_code = ?,
-                    set_rarity = ?,
-                    set_rarity_code = ?,
-                    set_price = ?,
-                    image_url = ?
-                WHERE id = ?
-            ");
+            $stmt = $this->pdo->prepare("UPDATE Cartes SET name = ?, type = ?, frame_type = ?, description = ?, race = ?, archetype = ?, set_name = ?, set_code = ?, set_rarity = ?, set_rarity_code = ?, set_price = ?, image_url = ? WHERE id = ?");
+
     
             $stmt->execute([
-                $card->getNom(),
-                $card->getType(),
-                $card->getFrame_Type(),
-                $card->getDescription(),
-                $card->getrace(),
-                $card->getarchetype(),
-                $card->getset_name(),
-                $card->getset_code(),
-                $card->getset_rarity(),
-                $card->getset_rarity_code(),
-                $card->getset_price(),
-                $card->getimage_url(),
-                $card->getid()
+                $name,
+                $type,
+                $frame_type,
+                $description,
+                $race,
+                $archetype,
+                $set_name,
+                $set_code,
+                $set_rarity,
+                $set_rarity_code,
+                $set_price,
+                $image_url,
+                $id
             ]);
     
             if ($stmt->rowCount() > 0) {
@@ -84,16 +84,12 @@ class CardManager {
                 return "Aucune mise à jour n'a été effectuée.";
             }
         } catch (PDOException $e) {
-            // Gestion de l'erreur
+            // Gérer l'erreur
             return "Erreur lors de la mise à jour : " . $e->getMessage();
         }
+
     }
     
-
-    public function deleteCard($cardId) {
-        $stmt = $this->pdo->prepare("DELETE FROM Cards WHERE id = ?");
-        $stmt->execute([$cardId]);
-    }
     
 }
 

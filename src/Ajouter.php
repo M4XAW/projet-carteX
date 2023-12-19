@@ -1,42 +1,37 @@
 <?php
-
 require_once('Card.php');
 require_once('CardManager.php');
-require_once('config.php'); // Assurez-vous d'inclure correctement votre fichier de configuration de la base de données.
+require_once('config.php');
 
-if (isset($_POST['submit'])) {
-    // Créez une instance de la classe Card avec les données du formulaire
-    $card = new Card();
-    $card->setNom($_POST['nom']);
-    $card->setType($_POST['type']);
-    $card->setFrame_Type($_POST['frame_type']);
-    $card->setDescription($_POST['description']);
-    $card->setRace($_POST['race']);
-    $card->setArchetype($_POST['archetype']);
-    $card->setSet_Name($_POST['set_name']);
-    $card->setSet_Code($_POST['set_code']);
-    $card->setSet_Rarity($_POST['set_rarity']);
-    $card->setSet_Rarity_Code($_POST['set_rarity_code']);
-    $card->setSet_Price($_POST['set_price']);
-    $card->setImage_URL($_POST['image_url']);
 
-    // Créez une instance de la classe CardManager pour gérer les opérations de base de données
-    $cardManager = new CardManager(); // Remplacez par la bonne classe de gestion des cartes
+$cardManager = new CardManager($pdo); // Instanciation correcte
 
-    // Appel de la méthode addCard pour ajouter la carte à la base de données
-    $cardId = $cardManager->addCard($card);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $card = new Card();
+        $card->setName($_POST['name']);
+        $card->setType($_POST['type']);
+        $card->setFrame_Type($_POST['frame_type']);
+        $card->setDescription($_POST['description']);
+        $card->setRace($_POST['race']);
+        $card->setArchetype($_POST['archetype']);
+        $card->setSet_Name($_POST['set_name']);
+        $card->setSet_Code($_POST['set_code']);
+        $card->setSet_Rarity($_POST['set_rarity']);
+        $card->setSet_Rarity_Code($_POST['set_rarity_code']);
+        $card->setSet_Price($_POST['set_price']);
+        $card->setImage_URL($_POST['image_url']);
 
-    // Faites quelque chose après avoir ajouté la carte, par exemple, redirigez l'utilisateur
-    if ($cardId) {
-        // Redirection vers une page de confirmation ou autre
-        header("Location: confirmation.php?card_id=" . $cardId);
-        exit;
-    } else {
-        // Gestion des erreurs si l'ajout a échoué
-        echo "L'ajout de la carte a échoué.";
+        $cardId = $cardManager->addCard($card);
+
+        // ... (le reste de votre code)
+    } catch (PDOException $e) {
+        echo "Erreur PDO lors de l'ajout de la carte : " . $e->getMessage();
+    } catch (Exception $e) {
+        echo "Erreur lors de l'ajout de la carte : " . $e->getMessage();
     }
-}
 
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,9 +41,10 @@ if (isset($_POST['submit'])) {
 </head>
 <body>
     <h1>Ajouter une carte</h1>
-    <form method="post" action="traitement.php">
+    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
+        
         <label for="nom">Nom de la carte:</label>
-        <input type="text" name="nom" id="nom" required><br><br>
+        <input type="text" name="name" id="name" required><br><br>
 
         <label for="type">Type de carte:</label>
         <input type="text" name="type" id="type" required><br><br>
