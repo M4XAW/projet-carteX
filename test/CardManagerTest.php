@@ -34,17 +34,17 @@ class CardManagerTest extends TestCase
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    // public function testAddCard() {
-    //     // Créer une carte d'exemple
-    //     $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
+    public function testAddCard() {
+        // Créer une carte d'exemple
+        $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
 
-    //     // Insérer la carte dans la base de données
-    //     $lastInsertId = $this->cardManager->addCard($card);
+        // Insérer la carte dans la base de données
+        $lastInsertId = $this->cardManager->addCard($card);
 
-    //     // Vérifier que l'ID retourné n'est pas null
-    //     $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
+        // Vérifier que l'ID retourné n'est pas null
+        $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
 
-    // }
+    }
      public function testDeleteCard() {
         //// Assume you have an existing card with an ID
         $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
@@ -63,7 +63,7 @@ class CardManagerTest extends TestCase
     // public function testUpdateCard() {
     //     // Préparer une carte avec les informations mises à jour
     //     $card = new Card();
-    //     $card->setID_Carte(9); // Utilisez l'ID de la carte que vous souhaitez mettre à jour
+    //     $card->setid(9); // Utilisez l'ID de la carte que vous souhaitez mettre à jour
     //     $card->setNom("Nom mis à jour");
     //     $card->setType("Type mis à jour");
     //     // ... définissez les autres propriétés de la carte ...

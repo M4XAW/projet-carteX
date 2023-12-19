@@ -1,4 +1,5 @@
-<?php 
+
+<?php
 require_once 'config.php';
 
 class AdminManager
@@ -19,7 +20,8 @@ class AdminManager
   
 
 
-
 }
+?>
+
 
 
