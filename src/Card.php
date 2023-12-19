@@ -1,6 +1,5 @@
 <?php
 class Card {
-
     public $Nom;
     public $Type;
     public $Frame_Type;
@@ -28,7 +27,6 @@ class Card {
         $Set_Price,
         $Image_URL
     ) {
-   
         $this->Nom = $Nom;
         $this->Type = $Type;
         $this->Frame_Type = $Frame_Type;
@@ -92,6 +90,7 @@ class Card {
         return $this->Image_URL;
     }
 
+
     public function setNom($Nom) {
         $this->Nom = $Nom;
     }
@@ -140,7 +139,7 @@ class Card {
         $this->Image_URL = $Image_URL;
     }
 
-    
+
     
 }
 
