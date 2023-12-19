@@ -1,8 +1,8 @@
 <?php
 
-require_once('src/Card.php');
-require_once('src/CardManager.php');
-require_once('src/config.php'); // Assurez-vous d'inclure correctement votre fichier de configuration de la base de données.
+require_once('Card.php');
+require_once('CardManager.php');
+require_once('config.php'); // Assurez-vous d'inclure correctement votre fichier de configuration de la base de données.
 
 if (isset($_POST['submit'])) {
     // Créez une instance de la classe Card avec les données du formulaire
