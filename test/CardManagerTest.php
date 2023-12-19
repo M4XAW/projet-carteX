@@ -40,7 +40,6 @@ class CardManagerTest extends TestCase
 
         // Insérer la carte dans la base de données
         $lastInsertId = $this->cardManager->addCard($card);
-<<<<<<< HEAD
 
         // Vérifier que l'ID retourné n'est pas null
         $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
@@ -48,32 +47,21 @@ class CardManagerTest extends TestCase
     }
 
 
-    // public function testDeleteCard() {
-    //     // Assume you have an existing card with an ID
-    //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
-=======
-
-        // Vérifier que l'ID retourné n'est pas null
-        $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
-
-    }
-     public function testDeleteCard() {
-        //// Assume you have an existing card with an ID
-        $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
->>>>>>> e7578934fe68109c85d78f74cee4d17bdfbfec97
+    // // public function testDeleteCard() {
+    // //     // Assume you have an existing card with an ID
+    // //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
     
-        // Ensure the card exists before attempting to delete
-        $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
-        $stmt->execute([$cardIdToDelete]);
-        $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
-        $this->assertNotNull($existingCard, 'Card should exist before deletion');
+    //     // Ensure the card exists before attempting to delete
+    //     $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
+    //     $stmt->execute([$cardIdToDelete]);
+    //     $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     $this->assertNotNull($existingCard, 'Card should exist before deletion');
     
-        // Call the deleteCard method
-        $this->cardManager->deleteCard($cardIdToDelete);
+    //     // Call the deleteCard method
+    //     $this->cardManager->deleteCard($cardIdToDelete);
     
        
-<<<<<<< HEAD
-    // }
+    // // }
 
 
     // public function testUpdateCard() {
@@ -124,32 +112,6 @@ class CardManagerTest extends TestCase
     //     } catch (Exception $e) {
     //         echo "Erreur lors du test de mise à jour : " . $e->getMessage() . "\n";
     //     }
-=======
-    }
-    // public function testUpdateCard() {
-    //     // Préparer une carte avec les informations mises à jour
-    //     $card = new Card();
-    //     $card->setid(9); // Utilisez l'ID de la carte que vous souhaitez mettre à jour
-    //     $card->setNom("Nom mis à jour");
-    //     $card->setType("Type mis à jour");
-    //     // ... définissez les autres propriétés de la carte ...
-    
-    //     // Appeler la méthode updateCard
-    //     $this->cardManager->updateCard($card);
-    
-    //     // Récupérer la carte mise à jour de la base de données
-    //     $stmt = $this->pdo->prepare("SELECT * FROM Cartes WHERE ID_Carte = ?");
-    //     $stmt->execute([$card->getID_Carte()]);
-    //     $updatedCard = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    //     // Vérifier que la carte récupérée correspond à la carte mise à jour
-    //     $this->assertEquals("Nom mis à jour", $updatedCard['Nom']);
-    //     $this->assertEquals("Type mis à jour", $updatedCard['Type']);
-    //     // ... vérifiez les autres propriétés ...
-    
-    //     // Facultatif : vérifier le nombre de lignes affectées si votre méthode updateCard retourne cette information
-    //     // $this->assertEquals(1, $affectedRows);
->>>>>>> e7578934fe68109c85d78f74cee4d17bdfbfec97
     // }
     
     
