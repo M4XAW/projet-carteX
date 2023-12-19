@@ -1,22 +1,22 @@
 <?php
 class Card {
-    public $Nom;
-    public $Type;
-    public $Frame_Type;
-    public $Description;
-    public $Race;
-    public $Archetype;
-    public $Set_Name;
-    public $Set_Code;
-    public $Set_Rarity;
-    public $Set_Rarity_Code;
-    public $Set_Price;
-    public $Image_URL;
+    public $name;
+    public $type;
+    public $frame_type;
+    public $description;
+    public $race;
+    public $archetype;
+    public $set_name;
+    public $set_code;
+    public $set_rarity;
+    public $set_rarity_code;
+    public $set_price;
+    public $image_url;
 
     public function __construct(
-        $Nom,
-        $Type,
-        $Frame_Type,
+        $name,
+        $type,
+        $frame_type,
         $Description,
         $Race,
         $Archetype,
@@ -27,10 +27,10 @@ class Card {
         $Set_Price,
         $Image_URL
     ) {
-        $this->Nom = $Nom;
-        $this->Type = $Type;
-        $this->Frame_Type = $Frame_Type;
-        $this->Description = $Description;
+        $this->name = $name;
+        $this->type = $type;
+        $this->frame_type = $frame_type;
+        $this->description = $Description;
         $this->Race = $Race;
         $this->Archetype = $Archetype;
         $this->Set_Name = $Set_Name;
@@ -42,65 +42,65 @@ class Card {
     }
 
 
-    public function getNom() {
-        return $this->Nom;
+    public function getname() {
+        return $this->name;
     }
 
-    public function getType() {
-        return $this->Type;
+    public function gettype() {
+        return $this->type;
     }
 
-    public function getFrame_Type() {
-        return $this->Frame_Type;
+    public function getframe_type() {
+        return $this->frame_type;
     }
 
     public function getDescription() {
-        return $this->Description;
+        return $this->description;
     }
 
     public function getRace() {
-        return $this->Race;
+        return $this->race;
     }
 
     public function getArchetype() {
-        return $this->Archetype;
+        return $this->archetype;
     }
 
     public function getSet_Name() {
-        return $this->Set_Name;
+        return $this->set_name;
     }
 
     public function getSet_Code() {
-        return $this->Set_Code;
+        return $this->set_code;
     }
 
     public function getSet_Rarity() {
-        return $this->Set_Rarity;
+        return $this->set_rarity;
     }
 
     public function getSet_Rarity_Code() {
-        return $this->Set_Rarity_Code;
+        return $this->set_rarity_code;
     }
 
     public function getSet_Price() {
-        return $this->Set_Price;
+        return $this->set_price;
     }
 
     public function getImage_URL() {
-        return $this->Image_URL;
+        return $this->image_url;
     }
 
 
-    public function setNom($Nom) {
-        $this->Nom = $Nom;
+    public function setname($name) {
+        $this->name = $name;
     }
 
-    public function setType($Type) {
-        $this->Type = $Type;
+    public function settype($type) {
+        $this->type = $type;
     }
 
-    public function setFrame_Type($Frame_Type) {
-        $this->Frame_Type = $Frame_Type;
+    public function setframe_type($frame_type) {
+        $this->frame_type = $frame_type;
     }
 
     public function setDescription($Description) {

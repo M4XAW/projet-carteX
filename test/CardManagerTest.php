@@ -47,11 +47,11 @@ class CardManagerTest extends TestCase
     }
 
 
-    // public function testDeleteCard() {
-    //     // Assume you have an existing card with an ID
-    //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
+    // // public function testDeleteCard() {
+    // //     // Assume you have an existing card with an ID
+    // //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
     
-    //     Ensure the card exists before attempting to delete
+    //     // Ensure the card exists before attempting to delete
     //     $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
     //     $stmt->execute([$cardIdToDelete]);
     //     $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -61,7 +61,7 @@ class CardManagerTest extends TestCase
     //     $this->cardManager->deleteCard($cardIdToDelete);
     
        
-    // }
+    // // }
 
 
 //     public function testUpdateCard() {
@@ -88,10 +88,24 @@ class CardManagerTest extends TestCase
 //         $this->assertEquals("Nouveau Type", $updatedCard->getType());
 //         // ... (vérifiez d'autres propriétés)
 
-//         // Remarque : Assurez-vous de gérer proprement la suppression ou la réinitialisation de la base de données de test après ce test.
-//     }
-// }
+    //         // Mettre à jour la carte dans la base de données
+    //         $this->cardManager->updateCard($cardToUpdate);
+
+    //         // Récupérer les données mises à jour pour vérifier
+    //         $stmt->execute([$cardIdToUpdate]);
+    //         $updatedCardData = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    //         // Assertions pour vérifier la mise à jour
+    //         assert($updatedCardData['Nom'] === "Nom mis à jour", "Le nom de la carte doit être mis à jour");
+    //         // ... Ajoutez d'autres assertions pour les autres champs
+
+    //         echo "Test de mise à jour réussi.\n";
+    //     } catch (Exception $e) {
+    //         echo "Erreur lors du test de mise à jour : " . $e->getMessage() . "\n";
+    //     }
+    // }
     
+}
 
 
 
