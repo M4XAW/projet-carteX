@@ -8,7 +8,7 @@ class CardManager {
 
     public function addCard(Card $card) {
         $stmt = $this->pdo->prepare("
-            INSERT INTO Cartes (
+            INSERT INTO Cards (
                 Nom, Type, Frame_Type, Description, Race, 
                 Archetype, Set_Name, Set_Code, Set_Rarity, 
                 Set_Rarity_Code, Set_Price, Image_URL
@@ -38,7 +38,7 @@ class CardManager {
 
     public function updateCard(Card $card) {
         $stmt = $this->pdo->prepare("
-            UPDATE Cartes SET
+            UPDATE Cards SET
                 Nom = ?,
                 Type = ?,
                 Frame_Type = ?,
@@ -51,7 +51,7 @@ class CardManager {
                 Set_Rarity_Code = ?,
                 Set_Price = ?,
                 Image_URL = ?
-            WHERE ID_Carte = ?
+            WHERE id = ?
         ");
     
         $stmt->execute([
@@ -71,7 +71,7 @@ class CardManager {
         ]);
     }
     public function deleteCard($cardId) {
-        $stmt = $this->pdo->prepare("DELETE FROM Cartes WHERE ID_Carte = ?");
+        $stmt = $this->pdo->prepare("DELETE FROM Cards WHERE id = ?");
         $stmt->execute([$cardId]);
     }
     
