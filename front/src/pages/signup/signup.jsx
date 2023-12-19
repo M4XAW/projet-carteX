@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./signup.scss";
 
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function Signup() {
@@ -10,9 +10,7 @@ export default function Signup() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [incorrect, setIncorrect] = useState(null); // New state variable for error
-
   const navigate = useNavigate();
 
   const handleShowPassword = () => {
@@ -49,18 +47,18 @@ export default function Signup() {
         password,
       });
 
-      if (response.ok) {
+      if (response.status >= 200 && response.status < 300) {
         console.log("Inscription réussie");
-        navigate("/login"); // Redirige vers la page de connexion après l'inscription
+        navigate("/login");
       } else {
         console.error("Erreur lors de l'inscription");
+        setIncorrect("Erreur lors de l'inscription"); // Afficher le message d'erreur
       }
     } catch (error) {
-      console.error(
-        "Erreur lors de la requête",
-        error.response?.data || error.message
-      );
+      console.error("Erreur lors de la requête", error.response?.data.message || error.message);
+      setIncorrect(error.response?.data.message || "Erreur lors de l'inscription");
     }
+    
   };
 
   return (

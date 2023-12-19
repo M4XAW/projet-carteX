@@ -1,7 +1,7 @@
 const express = require('express')
 const mariadb = require('mariadb')
 const bcrypt = require('bcrypt')
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
 
 require('dotenv').config();
 
@@ -51,20 +51,28 @@ app.post('/api/login', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM users WHERE Email = ?", [req.body.email]);
-        if (rows.length == 0) {
+        const rows = await conn.query("SELECT * FROM users WHERE email = ?", [req.body.email]);
+        if (rows.length === 0) {
             res.status(404).send('Utilisateur non trouvé');
         } else {
             const match = await bcrypt.compare(req.body.password, rows[0].password);
             if (match) {
-                res.json(rows[0]);
+                // Création du token
+                const token = jwt.sign(
+                    { userId: rows[0].id },
+                    process.env.JWT_SECRET,
+                    { expiresIn: '1h' }
+                );
+
+                res.json({ token: token, user: rows[0] }); // Envoi du token
+
             } else {
                 res.status(401).send('Mot de passe incorrect');
             }
         }
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Erreur lors de la récupération des données');
+        console.error("Erreur lors de la connexion", err); // "Erreur lors de la connexion
+        res.status(500).send('Erreur de connexion');
     } finally {
         if (conn) conn.release();
     }
@@ -80,28 +88,36 @@ app.post('/api/signup', async (req, res) => {
     let conn;
   
     try {
-      const conn = await pool.getConnection();
+        const conn = await pool.getConnection();
+    
+        // Vérifier si l'email existe déjà
+        const existingUser = await conn.query('SELECT email FROM users WHERE email = ?', [email]);
+        if (existingUser.length > 0) {
+            return res.status(409).send('Un utilisateur avec cet email existe déjà');
+        }
   
-      // Vérifier si l'email existe déjà
-      const existingUser = await conn.query('SELECT email FROM users WHERE email = ?', [email]);
-      if (existingUser.length > 0) {
-        conn.end();
-        return res.status(409).send('Un utilisateur avec cet email existe déjà');
-      }
+        // Hachage du mot de passe
+        const hashedPassword = await bcrypt.hash(password, 10);
   
-      // Hachage du mot de passe
-      const hashedPassword = await bcrypt.hash(password, 10);
-  
-      // Insertion du nouvel utilisateur
-      await conn.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
-      
-      conn.end();
-      res.status(201).send('Utilisateur créé avec succès');
+        // Insertion du nouvel utilisateur
+        await conn.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
+    
+        // Création du token
+        const token = jwt.sign(
+            { userId: username }, // ou un identifiant unique
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        res.status(201).json({
+            message: 'Utilisateur créé avec succès',
+            token: token
+        });
     } catch (error) {
-      console.error('Erreur lors de la création de l\'utilisateur', error);
-      res.status(500).send('Erreur serveur');
+        console.error('Erreur lors de la création de l\'utilisateur', error);
+        res.status(500).send('Erreur serveur');
     } finally {
-      if (conn) conn.release();
+        if (conn) conn.release();
     }
 });
 

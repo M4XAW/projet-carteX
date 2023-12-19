@@ -14,5 +14,12 @@
     color: var(--white);
     padding-left: 5vh;
     width: 100%;
+
+    .cardTitle {
+      font-size: 2.5rem;
+      font-weight: bold;
+      line-height: 1;
+      margin-bottom: 1vh;
+    }
   }
 }

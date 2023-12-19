@@ -25,32 +25,40 @@ header {
 
   ul {
     display: flex;
-    justify-content: space-around;
     align-items: center;
+    height: 4.5vh;
     gap: 0.8vh;
     list-style-type: none;
 
     .disconnect {
-      border: var(--border);
-      transition: all 0.3s ease;
+      height: 4.5vh;
+      width: 4.5vh;
       background-image: url(../../assets/icon/logout.svg);
       background-size: 2vh;
       background-repeat: no-repeat;
       background-position: center;
-      height: 4vh;
+      background-color: transparent;
+      border: var(--border);
+      border-radius: 0.6vh;
+      transition: all 0.3s ease;
+      cursor: pointer;
       
       &:hover {
-        background-color: var(--red);
+        background-color: var(--red-opacity);
         border: 0.3vh solid var(--red);
       }
     }
 
     a {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       text-decoration: none;
       color: var(--white);
       font-size: 1.6vh;
       font-weight: 500;
-      padding: 1vh 2vh;
+      padding: 0 2vh;
+      height: 4.5vh;
       border-radius: 0.6vh;
       border: 0.3vh solid transparent;
       transition: all 0.3s ease;

@@ -3,6 +3,8 @@
   import { useNavigate } from "react-router-dom";
   import "./login.scss";
 
+  import axios from "axios";
+
   export default function Login() {
     const [showPassword, setShowPassword] = useState(false);
     const [email, setEmail] = useState("");
@@ -17,39 +19,31 @@
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
-        const response = await fetch("http://localhost:8000/api/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password,
-          }),
-        });
-
-        if (response.ok) {
-          const data = await response.json();
-          const { userId } = data;
-
-          // Stocker l'ID utilisateur dans le localStorage
-          localStorage.setItem("userId", userId);
-
-          console.log("Connexion réussie");
-          navigate("/");
-        } else {
-            console.error("Erreur lors de la connexion");
-            setIncorrect("Email ou mot de passe incorrect."); // Set error message
-        }
+          const response = await axios.post("http://localhost:8000/api/login", {
+              email: email,
+              password: password,
+          });
+  
+          if (response.status === 200) {
+              const { token } = response.data; // Récupération du token de la réponse
+  
+              // Stocker le token dans le localStorage
+              localStorage.setItem("token", token);
+  
+              console.log("Connexion réussie");
+              navigate("/");
+          } else {
+              console.error("Erreur lors de la connexion");
+          }
       } catch (err) {
           console.error("Erreur inattendue", err);
-          setIncorrect("Une erreur inattendue s'est produite."); // Set error message
+          setIncorrect("Email ou mot de passe incorrect.");
       } finally {
           setEmail("");
           setPassword("");
       }
-    };
-
+  };
+  
     return (
       <div className="login">
         <div className="containerLogin">
@@ -90,7 +84,7 @@
           {incorrect && <div className="incorrect">{incorrect}</div>} {/* On affiche un message d'erreur si le login a échoué */}
           <div className="notHaveAccount">
             <p>Vous n'avez pas de compte ?</p>
-            <Link to="/register">Inscrivez-vous</Link>
+            <Link to="/signup">Inscrivez-vous</Link>
           </div>
         </div>
       </div>
