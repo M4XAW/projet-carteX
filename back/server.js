@@ -46,6 +46,19 @@ app.get('/api/card/:id', async (req, res) => {
         if (conn) conn.release();
     }
 });
+app.delete('/api/card/:id', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        await conn.query("DELETE FROM cards WHERE id = ?", [req.params.id]);
+        res.status(204).send();
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la suppression des données');
+    } finally {
+        if (conn) conn.release();
+    }
+});
 
 app.post('/api/login', async (req, res) => {
     let conn;
