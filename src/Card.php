@@ -1,6 +1,6 @@
 <?php
 class Card {
-    public $ID_Carte;
+
     public $Nom;
     public $Type;
     public $Frame_Type;
@@ -15,7 +15,6 @@ class Card {
     public $Image_URL;
 
     public function __construct(
-        $ID_Carte,
         $Nom,
         $Type,
         $Frame_Type,
@@ -29,7 +28,7 @@ class Card {
         $Set_Price,
         $Image_URL
     ) {
-        $this->ID_Carte = $ID_Carte;
+   
         $this->Nom = $Nom;
         $this->Type = $Type;
         $this->Frame_Type = $Frame_Type;
@@ -44,9 +43,6 @@ class Card {
         $this->Image_URL = $Image_URL;
     }
 
-    public function getID_Carte() {
-        return $this->ID_Carte;
-    }
 
     public function getNom() {
         return $this->Nom;
@@ -95,6 +91,56 @@ class Card {
     public function getImage_URL() {
         return $this->Image_URL;
     }
+
+    public function setNom($Nom) {
+        $this->Nom = $Nom;
+    }
+
+    public function setType($Type) {
+        $this->Type = $Type;
+    }
+
+    public function setFrame_Type($Frame_Type) {
+        $this->Frame_Type = $Frame_Type;
+    }
+
+    public function setDescription($Description) {
+        $this->Description = $Description;
+    }
+
+    public function setRace($Race){
+        $this->Race = $Race;
+    }
+
+    public function setArchetype($Archetype) {
+        $this->Archetype = $Archetype;
+    }
+
+    public function setSet_Name($Set_Name) {
+        $this->Set_Name = $Set_Name;
+    }
+
+    public function setSet_Code($Set_Code) {
+        $this->Set_Code = $Set_Code;
+    }
+
+    public function setSet_Rarity($Set_Rarity) {
+        $this->Set_Rarity = $Set_Rarity;
+    }
+
+    public function setSet_Rarity_Code($Set_Rarity_Code) {
+        $this->Set_Rarity_Code = $Set_Rarity_Code;
+    }
+
+    public function setSet_Price($Set_Price) {
+        $this->Set_Price = $Set_Price;
+    }
+
+    public function setImage_URL($Image_URL) {
+        $this->Image_URL = $Image_URL;
+    }
+
+    
     
 }
 
