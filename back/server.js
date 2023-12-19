@@ -46,6 +46,7 @@ app.get('/api/card/:id', async (req, res) => {
         if (conn) conn.release();
     }
 });
+
 app.delete('/api/card/:id', async (req, res) => {
     let conn;
     try {

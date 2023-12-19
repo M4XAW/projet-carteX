@@ -3,8 +3,37 @@
     min-height: 90vh;
     width: 100%;
 
-    h1 {
-        color: var(--white);
-        font-size: 3vh;
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 3vh;
+
+        h2 {
+            color: var(--white);
+            font-size: 3vh;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5vh;
+            padding: 0 2vh;
+            font-size: 1.6vh;
+            font-weight: 400;
+            outline: none;
+            color: var(--white);
+            background-color: var(--dark-black);
+            border-radius: 1vh;
+            border: var(--border);
+            transition: all 0.3s ease;
+        
+            &:hover {
+                cursor: pointer;
+                border-color: var(--red);
+                background-color: var(--red-opacity);
+            }
+        }
     }
 }

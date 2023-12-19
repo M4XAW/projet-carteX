@@ -7,6 +7,7 @@ import Home from './pages/home/home';
 import Login from './pages/login/login';
 import Signup from './pages/signup/signup';
 import Card from './pages/card/card';
+import Creation from './pages/creation/creation';
 import Dashboard from './pages/dashboard/dashboard';
 import Error from './pages/error/error';
 
@@ -20,6 +21,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/card/:id" element={<Card />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/creation" element={<Creation />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
