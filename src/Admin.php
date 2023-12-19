@@ -1,4 +1,5 @@
-<?php 
+
+<?php
 require_once 'config.php';
 
 class AdminManager
@@ -9,15 +10,18 @@ class AdminManager
         $this->pdo = $pdo;
     }
   
-  public function DeleteUsers (){
+      public function DeleteUsers ($id){
     $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
     $stmt->execute(['id' => $id]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
     return $user;
   }
+
   
 
 
 }
+?>
+
 
 

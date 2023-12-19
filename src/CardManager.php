@@ -9,10 +9,10 @@ class CardManager {
     public function addCard(Card $card) {
         // Prépare la requête SQL d'insertion
         $stmt = $this->pdo->prepare("
-            INSERT INTO Cartes (
-                Nom, Type, Frame_Type, Description, Race, 
-                Archetype, Set_Name, Set_Code, Set_Rarity, 
-                Set_Rarity_Code, Set_Price, Image_URL
+            INSERT INTO Cards (
+                name,type,frame_type,description,race, 
+                archetype,set_name,set_code,set_rarity, 
+                set_rarity_code,set_price,image_url
             ) VALUES (
                 :nom, :type, :frame_type, :description, :race, 
                 :archetype, :set_name, :set_code, :set_rarity, 
@@ -43,6 +43,7 @@ class CardManager {
     
     
 
+<<<<<<< HEAD
     public function updateCard(Card $card) {
         try {
             $stmt = $this->pdo->prepare("
@@ -90,8 +91,44 @@ class CardManager {
     }
     
 
+=======
+    // public function updateCard(Card $card) {
+    //     $stmt = $this->pdo->prepare("
+    //         UPDATE Cards SET
+    //             Nom = ?,
+    //             Type = ?,
+    //             Frame_Type = ?,
+    //             Description = ?,
+    //             Race = ?,
+    //             Archetype = ?,
+    //             Set_Name = ?,
+    //             Set_Code = ?,
+    //             Set_Rarity = ?,
+    //             Set_Rarity_Code = ?,
+    //             Set_Price = ?,
+    //             Image_URL = ?
+    //         WHERE id = ?
+    //     ");
+    
+    //     $stmt->execute([
+    //         $card->getNom(),
+    //         $card->getType(),
+    //         $card->getFrame_Type(),
+    //         $card->getDescription(),
+    //         $card->getRace(),
+    //         $card->getArchetype(),
+    //         $card->getSet_Name(),
+    //         $card->getSet_Code(),
+    //         $card->getSet_Rarity(),
+    //         $card->getSet_Rarity_Code(),
+    //         $card->getSet_Price(),
+    //         $card->getImage_URL(),
+    //         $card->getID_Carte()
+    //     ]);
+    // }
+>>>>>>> e7578934fe68109c85d78f74cee4d17bdfbfec97
     public function deleteCard($cardId) {
-        $stmt = $this->pdo->prepare("DELETE FROM Cartes WHERE ID_Carte = ?");
+        $stmt = $this->pdo->prepare("DELETE FROM Cards WHERE id = ?");
         $stmt->execute([$cardId]);
     }
     
