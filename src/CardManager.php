@@ -21,7 +21,7 @@ class CardManager {
         ");
     
         // Associe les valeurs aux paramètres dans la requête
-        $stmt->bindValue(':nom', $card->getNom());
+        $stmt->bindValue(':nom', $card->getname());
         $stmt->bindValue(':type', $card->getType());
         $stmt->bindValue(':frame_type', $card->getFrame_Type());
         $stmt->bindValue(':description', $card->getDescription());
@@ -63,7 +63,7 @@ class CardManager {
             ");
     
             $stmt->execute([
-                $card->getNom(),
+                $card->getname(),
                 $card->getType(),
                 $card->getFrame_Type(),
                 $card->getDescription(),
@@ -75,7 +75,6 @@ class CardManager {
                 $card->getset_rarity_code(),
                 $card->getset_price(),
                 $card->getimage_url(),
-                $card->getid()
             ]);
     
             if ($stmt->rowCount() > 0) {
