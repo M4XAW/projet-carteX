@@ -58,9 +58,7 @@ export default function Home() {
   };
 
   const filteredCards = searchTerm
-    ? cards.filter((card) =>
-        card.name.toLowerCase().includes(searchTerm)
-      )
+    ? cards.filter((card) => card.name.toLowerCase().includes(searchTerm))
     : cards;
 
   return (
@@ -75,13 +73,25 @@ export default function Home() {
           placeholder="Rechercher"
         />
         <button className="sortButton" onClick={() => toggleSortOrder("name")}>
-          Nom {sortType === "name" ? `(${sortOrder === "asc" ? "A-Z" : "Z-A"})` : ""}
+          Nom{" "}
+          {sortType === "name"
+            ? `(${sortOrder === "asc" ? "A-Z" : "Z-A"})`
+            : ""}
         </button>
         <button className="sortButton" onClick={() => toggleSortOrder("price")}>
-          Prix {sortType === "price" ? `(${sortOrder === "asc" ? "croissant" : "décroissant"})` : ""}
+          Prix{" "}
+          {sortType === "price"
+            ? `(${sortOrder === "asc" ? "croissant" : "décroissant"})`
+            : ""}
         </button>
-        <button className="sortButton" onClick={() => toggleSortOrder("rarity")}>
-          Rareté {sortType === "rarity" ? `(${sortOrder === "asc" ? "asc" : "desc"})` : ""}
+        <button
+          className="sortButton"
+          onClick={() => toggleSortOrder("rarity")}
+        >
+          Rareté{" "}
+          {sortType === "rarity"
+            ? `(${sortOrder === "asc" ? "asc" : "desc"})`
+            : ""}
         </button>
       </div>
       <div className="cardContainer">
@@ -97,9 +107,11 @@ export default function Home() {
               <Link to={`/card/${card.id}`}>
                 <img src={card.image_url} alt={card.name} />
               </Link>
-              <h3>{card.name}</h3>
-              <p>{card.set_rarity}</p>
-              <p>{card.set_price} $</p>
+              <div className="cardDetails">
+                <h3>{card.name}</h3>
+                <p>{card.set_rarity}</p>
+                <p>{card.set_price} $</p>
+              </div>
             </div>
           ))
         )}

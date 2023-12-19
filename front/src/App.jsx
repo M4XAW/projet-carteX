@@ -11,18 +11,22 @@ import Creation from './pages/creation/creation';
 import Dashboard from './pages/dashboard/dashboard';
 import Error from './pages/error/error';
 
+import { AuthProvider } from "./auth/AuthContext"; // Importez le composant AuthProvider
+
 function App() {
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/card/:id" element={<Card />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/creation" element={<Creation />} />
-        <Route path="*" element={<Error />} />
+        <AuthProvider>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/card/:id" element={<Card />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/creation" element={<Creation />} />
+          <Route path="*" element={<Error />} />
+        </AuthProvider>
       </Routes>
       <Footer />
     </div>

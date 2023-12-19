@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import "./header.scss";
+import { useAuth } from "../../auth/AuthContext"; // Importez le hook useAuth
 
 export default function Header() {
-  // État pour suivre si l'utilisateur est connecté
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état isLoggedIn
 
   // Gestionnaire de déconnexion
   const handleLogout = () => {
@@ -12,12 +12,6 @@ export default function Header() {
     setIsLoggedIn(false); // Mettre à jour l'état après la déconnexion
     // Ajoutez ici toute logique supplémentaire nécessaire après la déconnexion
   };
-
-  // Effet pour synchroniser l'état avec le localStorage
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(token !== null);
-  }, []);
 
   return (
     <header>
