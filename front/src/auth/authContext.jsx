@@ -1,11 +1,12 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-import { jwtDecode } from 'jwt-decode'; // Importez jwtDecode
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext(null);
 
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null); // Ajoutez cet état pour les informations de l'utilisateur
 
@@ -27,13 +28,12 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    localStorage.removeItem('userInfo'); // Assurez-vous de supprimer également les informations de l'utilisateur
     setIsLoggedIn(false);
     setUser(null); // Réinitialisez l'état de l'utilisateur
   };
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, user, login, logout }}>
+    <AuthContext.Provider value={{ isLoggedIn, token, user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

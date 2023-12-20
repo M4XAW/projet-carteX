@@ -48,7 +48,7 @@ export default function Header() {
                 <Link to="/">Cartes</Link>
               </li>
               <li>
-                <Link to="/dashboard">Dashboard</Link>
+                <Link to="/cards">Mes cartes</Link>
               </li>
               {isAdmin && (
                 <li>

@@ -9,10 +9,13 @@
   --grey: #7a7a7a;
   --light-grey: #111111;
   --dark-grey: #353535;
+  --blue: #1e90ff;
+  --blue-opacity: #1e90ff99;
   --red: #ff3f3f;
   --red-opacity: #ff3f3f99;
   --border-red: #d12f2f;
   --green: #46d671;
+  --green-opacity: #46d67199;
   --dark-green: #38b35d;
   --border-green: 0.3vh solid var(--dark-green);
   --border: 0.3vh solid var(--dark-grey);

@@ -1,0 +1,146 @@
+.cardsPage {
+    padding: 3vh 5vh;
+    min-height: 90vh;
+    width: 100%;
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2vh;
+
+        h2 {
+            color: var(--white);
+            font-size: 3vh;
+        }
+
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 5vh;
+            padding: 0 2vh;
+            font-size: 1.6vh;
+            font-weight: 400;
+            outline: none;
+            color: var(--white);
+            background-color: var(--dark-black);
+            border-radius: 1vh;
+            border: var(--border);
+            transition: all 0.3s ease;
+        
+            &:hover {
+                cursor: pointer;
+                border-color: var(--red);
+                background-color: var(--red-opacity);
+            }
+        }
+    }
+
+    .cards {
+        .card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 10vh;
+            gap: 2vh;
+            color: var(--white);
+            background-color: var(--dark-black);
+            border-radius: 1vh;
+            border: var(--border);
+            padding: 2vh;
+            margin-bottom: 2vh;
+            transition: all 0.3s ease;
+
+            &:hover {
+                cursor: pointer;
+                border-color: var(--grey);
+            }
+
+            img {
+                height: 100%;
+            }
+
+            .cardInfos {
+                width: 100%;
+            }
+        }
+
+        .cardsButtons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2vh;
+
+            .view {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vh;
+                font-size: 1.6vh;
+                font-weight: 400;
+                outline: none;
+                color: var(--white);
+                background-color: var(--dark-black);
+                border-radius: 1vh;
+                border: var(--border);
+                transition: all 0.3s ease;
+            
+                &:hover {
+                    cursor: pointer;
+                    border-color: var(--blue);
+                    background-color: var(--blue-opacity);
+                }
+            }
+
+            .edit {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vh;
+                font-size: 1.6vh;
+                font-weight: 400;
+                outline: none;
+                color: var(--white);
+                background-color: var(--dark-black);
+                border-radius: 1vh;
+                border: var(--border);
+                transition: all 0.3s ease;
+            
+                &:hover {
+                    cursor: pointer;
+                    border-color: var(--green);
+                    background-color: var(--green-opacity);
+                }
+            }
+
+            .delete {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 5vh;
+                padding: 0 2vh;
+                font-size: 1.6vh;
+                font-weight: 400;
+                outline: none;
+                color: var(--white);
+                background-color: var(--dark-black);
+                border-radius: 1vh;
+                border: var(--border);
+                transition: all 0.3s ease;
+            
+                &:hover {
+                    cursor: pointer;
+                    border-color: var(--red);
+                    background-color: var(--red-opacity);
+                }
+            }
+        }
+        
+        .empty {
+            color: var(--white);
+        }
+    }
+}

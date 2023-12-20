@@ -1,9 +1,49 @@
 .adminPage {
-    padding: 5vh;
+    padding: 3vh 5vh;
     min-height: 90vh;
     width: 100%;
 
-    h1 {
+    h2 {
         color: var(--white);
+        font-size: 3vh;
+        margin-bottom: 2vh;
+    } 
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .tabs {
+            display: flex;
+            flex-direction: column;
+            gap: 1vh;
+
+            .tab {
+                height: 6vh;
+                width: 6vh;
+                background-color: var(--dark-black);
+                border-radius: 1vh;
+                border: var(--border);
+                transition: all 0.3s ease;
+
+                &:hover {
+                    cursor: pointer;
+                    border-color: var(--grey);
+                }
+
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: contain;
+                    padding: 1.5vh;
+                }
+            }
+        }
+
+        .content {
+            height: 100%;
+            width: 100%;
+        }
     }
 }

@@ -26,7 +26,7 @@ export default function Creation() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('/api/creation', card);
+      const response = await axios.post('http://localhost:8000/api/creation', card);
       console.log(response.data);
     } catch (error) {
       console.error("Erreur lors de la création de la carte", error);

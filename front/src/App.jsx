@@ -9,7 +9,7 @@ import Login from "./pages/login/login";
 import Signup from "./pages/signup/signup";
 import Card from "./pages/card/card";
 import Creation from "./pages/creation/creation";
-import Dashboard from "./pages/dashboard/dashboard";
+import Cards from "./pages/cards/cards";
 import Admin from "./pages/admin/admin";
 import Error from "./pages/error/error";
 
@@ -23,7 +23,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/card/:id" element={<Card />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/cards" element={<Cards />} />
           <Route path="/creation" element={<Creation />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Error />} />

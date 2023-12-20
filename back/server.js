@@ -6,14 +6,17 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 const app = express()
 var cors = require('cors')
+
 app.use(express.json())
 app.use(cors())
+
 const pool = mariadb.createPool({
     host: process.env.DB_HOST,
     database: process.env.DB_DTB,
     user: process.env.DB_USER,
     password: process.env.DB_PWD,
 })
+
 app.get('/api/cards', async (req, res) => {
     let conn;
     try {
@@ -27,12 +30,46 @@ app.get('/api/cards', async (req, res) => {
         if (conn) conn.release();
     }
 });
+
+app.get('/api/cards/list', async (req, res) => {
+    let conn;
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId;
+
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT c.* FROM cards c JOIN deck d ON c.id = d.card_id WHERE d.user_id = ?", [userId]);
+
+        res.json(rows);
+    } catch (err) {
+        console.error('Erreur lors de la récupération des cartes: ', err.message);
+        res.status(500).send('Erreur interne du serveur');
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
 app.get('/api/card/:id', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
         const rows = await conn.query("SELECT * FROM cards WHERE id = ?", [req.params.id]);
         res.json(rows[0] || {}); // renvoie le premier objet de la liste ou un objet vide
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Erreur lors de la récupération des données');
+    } finally {
+        if (conn) conn.release();
+    }
+});
+
+app.get('/api/deck', async (req, res) => {
+    let conn;
+    try {
+        conn = await pool.getConnection();
+        const rows = await conn.query("SELECT * FROM deck WHERE user_id = ?", [req.user.id]);
+        res.json(rows);
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur lors de la récupération des données');
@@ -75,20 +112,20 @@ app.post('/api/creation', async (req, res) => {
         ];
 
         await conn.query(insertCardSql, cardValues);
-        // const [cardResult] = await conn.query(insertCardSql, cardValues);
-        // const newCardId = cardResult.insertId;
+        const [cardResult] = await conn.query(insertCardSql, cardValues);
+        const newCardId = cardResult.insertId;
 
-        // // Obtention de l'ID de l'utilisateur à partir du token JWT
-        // // Assurez-vous que votre middleware d'authentification extrait correctement l'ID de l'utilisateur et l'ajoute à req.user
-        // const userId = req.user.id;
+        // Obtention de l'ID de l'utilisateur à partir du token JWT
+        // Assurez-vous que votre middleware d'authentification extrait correctement l'ID de l'utilisateur et l'ajoute à req.user
+        const userId = req.user.id;
 
-        // // Insertion dans la table 'deck'
-        // const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
-        // const deckValues = [userId, newCardId];
-        // await conn.query(insertDeckSql, deckValues);
+        // Insertion dans la table 'deck'
+        const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
+        const deckValues = [userId, newCardId];
+        await conn.query(insertDeckSql, deckValues);
 
-        // await conn.commit();
-        // res.json({ success: true, cardId: newCardId, message: "Carte créée avec succès" });
+        await conn.commit();
+        res.json({ success: true, cardId: newCardId, message: "Carte créée avec succès" });
     } catch (err) {
         await conn.rollback();
         console.error(err);
@@ -99,8 +136,6 @@ app.post('/api/creation', async (req, res) => {
         }
     }
 });
-
-
 
 app.post('/api/login', async (req, res) => {
     let conn;
@@ -135,7 +170,6 @@ app.post('/api/login', async (req, res) => {
         if (conn) conn.release();
     }
 });
-
 
 app.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
