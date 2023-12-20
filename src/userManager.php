@@ -10,14 +10,7 @@ class userManager
         $this->pdo = $pdo;
     }
   
-    public function getUserById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
+ 
     
 
 
@@ -25,7 +18,8 @@ class userManager
         $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
         $stmt->bindValue(':id', $id);
         $stmt->execute();
-    }
+    } 
+      
     public function getAllUsers() {
       $stmt = $this->pdo->prepare("SELECT * FROM users");
       $stmt->execute();
