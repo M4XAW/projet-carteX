@@ -37,12 +37,11 @@ class CardManager {
         $stmt = $this->pdo->prepare("SELECT * FROM Cards WHERE name = :name");
         $stmt->bindValue(':name', $card->getName());
         $stmt->execute();
-
+    
         if ($stmt->fetch(PDO::FETCH_ASSOC)) {
             // La carte existe déjà
             return false;
         }
-
     
         // Si la carte n'existe pas, procéder à l'insertion
         $stmt = $this->pdo->prepare("
@@ -51,14 +50,25 @@ class CardManager {
                 archetype, set_name, set_code, set_rarity, 
                 set_rarity_code, set_price, image_url
             ) VALUES (
-                :nom, :type, :frame_type, :description, :race, 
+                :name, :type, :frame_type, :description, :race, 
                 :archetype, :set_name, :set_code, :set_rarity, 
                 :set_rarity_code, :set_price, :image_url
             )
         ");
     
-        // Associer les valeurs aux paramètres dans la requête
-        // ...
+        // Bind the parameters with values from the Card object
+        $stmt->bindValue(':name', $card->getName());
+        $stmt->bindValue(':type', $card->getType());
+        $stmt->bindValue(':frame_type', $card->getFrame_Type());
+        $stmt->bindValue(':description', $card->getDescription());
+        $stmt->bindValue(':race', $card->getRace());
+        $stmt->bindValue(':archetype', $card->getArchetype());
+        $stmt->bindValue(':set_name', $card->getSet_Name());
+        $stmt->bindValue(':set_code', $card->getSet_Code());
+        $stmt->bindValue(':set_rarity', $card->getSet_Rarity());
+        $stmt->bindValue(':set_rarity_code', $card->getSet_Rarity_Code());
+        $stmt->bindValue(':set_price', $card->getSet_Price());
+        $stmt->bindValue(':image_url', $card->getImage_URL());
     
         // Exécuter la requête d'insertion
         $stmt->execute();
@@ -66,6 +76,7 @@ class CardManager {
         // Retourner l'ID de la carte nouvellement insérée
         return $this->pdo->lastInsertId();
     }
+    
     
     
 

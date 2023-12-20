@@ -58,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Ajouter une carte</h1>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
         
-        <label for="nom">Nom de la carte:</label>
+        <label for="name">Nom de la carte:</label>
         <input type="text" name="name" id="name" required><br><br>
 
         <label for="type">Type de carte:</label>
