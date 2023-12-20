@@ -70,39 +70,32 @@ class CardManager {
         // Exécute la requête de suppression
         $stmt->execute();
     }
-
-    public function updatecards($name, $type, $frame_type, $description, $race, $archetype, $set_name, $set_code, $set_rarity, $set_rarity_code, $set_price, $image_url) {
-        try {
-            $stmt = $this->pdo->prepare("UPDATE Cartes SET name = ?, type = ?, frame_type = ?, description = ?, race = ?, archetype = ?, set_name = ?, set_code = ?, set_rarity = ?, set_rarity_code = ?, set_price = ?, image_url = ? WHERE id = ?");
-
+    public function updateCard(Card $card) {
+        // Prépare la requête SQL de mise à jour
+        $stmt = $this->pdo->prepare("
+        UPDATE Cartes 
+        SET name = :name, type = :type, description = :description, race = :race, archetype = :archetype, set_name = :set_name, set_code = :set_code, set_rarity = :set_rarity, set_rarity_code = :set_rarity_code, set_price = :set_price, image_url = :image_url
+        WHERE id = :id
+    ");
+    $stmt->bindValue(':nom', $card->getname());
+    $stmt->bindValue(':type', $card->getType());
+    $stmt->bindValue(':frame_type', $card->getFrame_Type());
+    $stmt->bindValue(':description', $card->getDescription());
+    $stmt->bindValue(':race', $card->getrace());
+    $stmt->bindValue(':archetype', $card->getarchetype());
+    $stmt->bindValue(':set_name', $card->getset_name());
+    $stmt->bindValue(':set_code', $card->getset_code());
+    $stmt->bindValue(':set_rarity', $card->getset_rarity());
+    $stmt->bindValue(':set_rarity_code', $card->getset_rarity_code());
+    $stmt->bindValue(':set_price', $card->getset_price());
+    $stmt->bindValue(':image_url', $card->getimage_url());
     
-            $stmt->execute([
-                $name,
-                $type,
-                $frame_type,
-                $description,
-                $race,
-                $archetype,
-                $set_name,
-                $set_code,
-                $set_rarity,
-                $set_rarity_code,
-                $set_price,
-                $image_url,
-                $id
-            ]);
-    
-            if ($stmt->rowCount() > 0) {
-                return "Mise à jour réussie.";
-            } else {
-                return "Aucune mise à jour n'a été effectuée.";
-            }
-        } catch (PDOException $e) {
-            // Gérer l'erreur
-            return "Erreur lors de la mise à jour : " . $e->getMessage();
-        }
+    $stmt->execute();
+        $card = new Card();
 
-    }
+    }   
+  
+    
     
     
 }
