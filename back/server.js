@@ -78,11 +78,18 @@ app.get('/api/deck', async (req, res) => {
     }
 });
 
-app.delete('/api/card/:id', async (req, res) => {
+app.delete('/api/card/delete/:id', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        await conn.query("DELETE FROM cards WHERE id = ?", [req.params.id]);
+        const cardId = req.params.id;
+
+        // Supprimer d'abord toutes les références dans la table `deck`
+        await conn.query("DELETE FROM deck WHERE card_id = ?", [cardId]);
+
+        // Ensuite, supprimer la carte de la table `cards`
+        await conn.query("DELETE FROM cards WHERE id = ?", [cardId]);
+
         res.status(204).send();
     } catch (err) {
         console.error(err);

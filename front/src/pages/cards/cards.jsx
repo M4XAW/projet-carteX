@@ -19,6 +19,8 @@ export default function Cards() {
                     }
                 });
                 setCards(response.data);
+                console.log(token)
+                console.log("request executed")
             } catch (error) {
                 console.error('Erreur lors de la récupération des cartes de l\'utilisateur:', error);
                 setError(error);
@@ -31,7 +33,20 @@ export default function Cards() {
     }, [token]);
 
     const handleDelete = async (cardId) => {
-
+        try {
+            const response = await axios.delete(`http://localhost:8000/api/card/delete/${cardId}`);
+    
+            if (response.status === 204) {
+                console.log('Carte supprimée avec succès');
+    
+                // Mettre à jour l'état pour enlever la carte supprimée
+                setCards(cards.filter(card => card.id !== cardId));
+            } else {
+                console.error('Erreur lors de la suppression de la carte');
+            }
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la carte: ', error.message);
+        }
     };
 
     if (isLoading) {
@@ -61,7 +76,7 @@ export default function Cards() {
                             <div className="cardsButtons">
                                 <Link className='view' to={`/card/${card.id}`}>Voir</Link>
                                 <Link className='edit' to={`/creation/${card.id}`}>Modifier</Link>
-                                <button className="delete" onClick={() => handleDelete(card.id)}></button>
+                                <button className="delete" onClick={() => handleDelete(card.id)}>Supprimer</button>
                             </div>
                         </div>
                     ))

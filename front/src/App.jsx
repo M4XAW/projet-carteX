@@ -15,7 +15,8 @@ import Error from "./pages/error/error";
 import { useAuth } from "./auth/authContext";
 
 function App() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, user } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état et aux fonctions de connexion/déconnexion
+  const isAdmin = user && (user.username === 'admin' || user.id === 1);
 
   return (
     <div className="App">
@@ -29,7 +30,9 @@ function App() {
               <Route path="/card/:id" element={<Card />} />
               <Route path="/cards/user" element={<Cards />} />
               <Route path="/creation" element={<Creation />} />
-              <Route path="/admin" element={<Admin />} />
+              {isAdmin && (
+                <Route path="/admin" element={<Admin />} />
+              )}
             </>
           )}
           <Route path="*" element={<Error />} />
