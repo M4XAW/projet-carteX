@@ -1,13 +1,17 @@
 <?php
 
+
 require_once('Card.php');
 require_once('CardManager.php');
-require_once('config.php'); // Assurez-vous d'inclure correctement votre fichier de configuration de la base de données.
+require_once('config.php'); // Assurez-vous que ce fichier configure correctement PDO.
 
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Créez une instance de la classe Card avec les données du formulaire
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
     $card = new Card();
-    $card->setNom($_POST['nom']);
+    $card->setname($_POST['nom']);
     $card->setType($_POST['type']);
     $card->setFrame_Type($_POST['frame_type']);
     $card->setDescription($_POST['description']);
@@ -21,19 +25,24 @@ if (isset($_POST['submit'])) {
     $card->setImage_URL($_POST['image_url']);
 
     // Créez une instance de la classe CardManager pour gérer les opérations de base de données
-    $cardManager = new CardManager(); // Remplacez par la bonne classe de gestion des cartes
+    $pdo = new PDO('mysql:host=localhost;dbname=test', $user, $pass);
+    $cardManager = new CardManager($pdo);
 
-    // Appel de la méthode addCard pour ajouter la carte à la base de données
-    $cardId = $cardManager->addCard($card);
+    try {
+        // Appel de la méthode addCard pour ajouter la carte à la base de données
+        $cardId = $cardManager->addCard($card);
 
-    // Faites quelque chose après avoir ajouté la carte, par exemple, redirigez l'utilisateur
-    if ($cardId) {
-        // Redirection vers une page de confirmation ou autre
-        header("Location: confirmation.php?card_id=" . $cardId);
-        exit;
-    } else {
-        // Gestion des erreurs si l'ajout a échoué
-        echo "L'ajout de la carte a échoué.";
+        // Faites quelque chose après avoir ajouté la carte, par exemple, redirigez l'utilisateur
+        if ($cardId) {
+            // Redirection vers une page de confirmation ou autre
+            header("Location: confirmation.php?card_id=" . $cardId);
+            exit;
+        } else {
+            // Gestion des erreurs si l'ajout a échoué
+            echo "L'ajout de la carte a échoué.";
+        }
+    } catch (PDOException $e) {
+        echo "Erreur lors de l'ajout de la carte : " . $e->getMessage();
     }
 }
 
