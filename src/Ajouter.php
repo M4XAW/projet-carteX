@@ -37,9 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html>
 <head>
+<title>Liste des cartes</title>
+    <link rel="stylesheet" type="text/css" href="Ajouter.css">
     <title>Formulaire d'ajout de carte</title>
 </head>
 <body>
+<header>
+        <h1>Ajouter une carte</h1>
+        <a href="accueil.php">Accueil</a> <!-- Link to accueil.php -->
+    </header>
     <h1>Ajouter une carte</h1>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
         
