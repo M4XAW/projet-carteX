@@ -52,7 +52,18 @@ class CardManagerTest extends TestCase
         // Vérifier que l'ID retourné n'est pas null
         $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
 
-    }
+    // }
+    // public function testAddExistingCard() {
+    //     // Assumer qu'une carte avec ce nom existe déjà dans la base de données
+    //     $card = new Card("Nom Existant", "Type", "Frame Type", "Description", "Race", "Archetype", "Set Name", "Set Code", "Set Rarity", "RC", 15.99, "Image URL");
+    
+    //     // Tenter d'insérer la carte existante dans la base de données
+    //     $result = $this->cardManager->addCard($card);
+    
+    //     // Vérifier que la méthode retourne false
+    //     $this->assertFalse($result, "La méthode devrait retourner false pour une carte existante");
+    // }
+    
 
 
     public function testDeleteCard() {
@@ -98,7 +109,7 @@ class CardManagerTest extends TestCase
         // Assert : Vérifiez si les données mises à jour correspondent aux attentes
         $this->assertEquals("Nouveau Nom", $updatedCardData['name']);
         $this->assertEquals("Nouveau Type", $updatedCardData['type']);
-        
+
     }
     
     

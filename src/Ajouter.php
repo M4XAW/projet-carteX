@@ -22,17 +22,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $card->setSet_Price($_POST['set_price']);
         $card->setImage_URL($_POST['image_url']);
 
-        $cardId = $cardManager->addCard($card);
+        $existingCard = $cardManager->getCardByName($card->getName());
 
-        // ... (le reste de votre code)
+        if ($existingCard) {
+            echo "La carte existe déjà dans la base de données.";
+        } else {
+            $cardId = $cardManager->addCard($card);
+            if ($cardId) {
+                echo "La carte a été ajoutée avec succès, ID: " . $cardId;
+            } else {
+                echo "Erreur lors de l'ajout de la carte.";
+            }
+        }
     } catch (PDOException $e) {
         echo "Erreur PDO lors de l'ajout de la carte : " . $e->getMessage();
     } catch (Exception $e) {
         echo "Erreur lors de l'ajout de la carte : " . $e->getMessage();
     }
-
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
