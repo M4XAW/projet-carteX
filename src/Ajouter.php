@@ -54,6 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <header>
         <h1>Ajouter une carte</h1>
         <a href="accueil.php">Accueil</a> <!-- Link to accueil.php -->
+        <a href="displayUsers.php">Liste des users</a> <!-- Link to displayUsers.php -->
     </header>
     <h1>Ajouter une carte</h1>
     <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->

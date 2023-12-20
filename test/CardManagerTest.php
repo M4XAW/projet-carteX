@@ -71,7 +71,7 @@ class CardManagerTest extends TestCase
        
     }
     public function testUpdateCard() {
-        $cardToUpdateId = 295517;
+        $cardToUpdateId = 100213002;
 
         // Récupérer les données de la carte existante
         $stmt = $this->pdo->prepare('SELECT * FROM cards WHERE id = ?');
@@ -96,15 +96,19 @@ class CardManagerTest extends TestCase
         $updatedCardData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Assert : Vérifiez si les données mises à jour correspondent aux attentes
-        $this->assertEquals("A Legendary Ocean", $updatedCardData['name']);
-        $this->assertEquals("Spell Card", $updatedCardData['type']);
+        $this->assertEquals("A★Speculation", $updatedCardData['name']);
+        $this->assertEquals("Fusion Monster", $updatedCardData['type']);
     }
     public function testRecupererToutesLesCartesReturnsArray() {
         $cards = $this->cardManager->recupererToutesLesCartes();
         $this->assertIsArray($cards, 'recupererToutesLesCartes devrait retourner un tableau');
     }
+public function testAddCardWithNonNumericSetPrice() {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage("Le prix de l'ensemble doit être un nombre.");
 
-
+    $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 12.0, "Exemple Image URL");    $this->cardManager->addCard($card);
+}
 
 
 }
