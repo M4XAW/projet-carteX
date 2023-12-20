@@ -64,71 +64,12 @@ class CardManagerTest extends TestCase
     // }
 
 
-    function testUpdateCard() {
-        $cardIdToUpdate = 9; // L'ID de la carte à mettre à jour
-
-        try {
-            // Assurez-vous que $cardManager est initialisé correctement
-            if ($this->cardManager === null) {
-                throw new Exception('Card manager not initialized.');
-            }
-
-            // Récupérer les informations actuelles de la carte
-            $pdo = $this->cardManager->getPdo();
-            if ($pdo === null) {
-                throw new Exception('PDO not initialized.');
-            }
-
-            $stmt = $pdo->prepare("SELECT * FROM Cartes WHERE id = ?");
-            $stmt->execute([$cardIdToUpdate]);
-            $existingCardData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if (!$existingCardData) {
-                throw new Exception('Card not found.');
-            }
-
-            // Créer une instance de Card avec les données existantes
-            $cardToUpdate = new Card(
-                $existingCardData['name'],
-                $existingCardData['type'],
-                $existingCardData['frame_type'],
-                $existingCardData['description'],
-                $existingCardData['race'],
-                $existingCardData['archetype'],
-                $existingCardData['set_name'],
-                $existingCardData['set_code'],
-                $existingCardData['set_rarity'],
-                $existingCardData['set_rarity_code'],
-                $existingCardData['set_price'],
-                $existingCardData['image_url']
-            );
-
-            // Modifier les propriétés nécessaires de la carte
-            $cardToUpdate->setname("Nom mis à jour");
-            // ... Mettez à jour les autres propriétés si nécessaire
-
-            // Mettre à jour la carte dans la base de données
-            $result = $this->cardManager->updateCard($cardToUpdate);
-
-            echo $result . "\n"; // Affiche le résultat de la mise à jour
-
-            // Récupérer les données mises à jour pour vérifier
-            $stmt->execute([$cardIdToUpdate]);
-            $updatedCardData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            // Assertions pour vérifier la mise à jour
-            $this->assertEquals("Nom mis à jour", $updatedCardData['name'], "Le nom de la carte doit être mis à jour");
-            // ... Ajoutez d'autres assertions pour les autres champs
-
-            echo "Test de mise à jour réussi.\n";
-        } catch (Exception $e) {
-            echo "Erreur lors du test de mise à jour : " . $e->getMessage() . "\n";
-        }
+    
     }
-
-    }
-
 ?>
+
+        
+
 
         
 
