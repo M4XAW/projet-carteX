@@ -99,13 +99,18 @@ app.delete('/api/card/delete/:id', async (req, res) => {
     }
 });
 
-app.post('/api/creation', async (req, res) => {
+app.post('/api/card/create', async (req, res) => {
     let conn;
     try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId;
+
         conn = await pool.getConnection();
+        await conn.beginTransaction();
 
         // Insertion dans la table 'cards'
-        const insertCardSql = "INSERT INTO cards (name, type, description, race, archetype, set_name, set_rarity, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const insertCardSql = "INSERT INTO cards (name, type, description, race, archetype, set_name, set_rarity, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         const cardValues = [
             req.body.name,
             req.body.type,
@@ -118,21 +123,17 @@ app.post('/api/creation', async (req, res) => {
             req.body.image_url
         ];
 
-        await conn.query(insertCardSql, cardValues);
-        const [cardResult] = await conn.query(insertCardSql, cardValues);
-        const newCardId = cardResult.insertId;
-
-        // Obtention de l'ID de l'utilisateur à partir du token JWT
-        // Assurez-vous que votre middleware d'authentification extrait correctement l'ID de l'utilisateur et l'ajoute à req.user
-        const userId = req.user.id;
+        const result = await conn.query(insertCardSql, cardValues);
+        const insertCardId = result.insertId.toString();
 
         // Insertion dans la table 'deck'
         const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
-        const deckValues = [userId, newCardId];
+        const deckValues = [userId, insertCardId];
+        
         await conn.query(insertDeckSql, deckValues);
 
         await conn.commit();
-        res.json({ success: true, cardId: newCardId, message: "Carte créée avec succès" });
+        res.json({ success: true, cardId: insertCardId, message: "Carte créée avec succès" });
     } catch (err) {
         await conn.rollback();
         console.error(err);

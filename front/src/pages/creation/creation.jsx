@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios"; // Assurez-vous d'installer axios avec `npm install axios`
 import "./creation.scss";
+import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../auth/authContext';
 
 export default function Creation() {
+  const { token } = useAuth();
+  const navigate = useNavigate();
+
   const [card, setCard] = useState({
     name: "",
     type: "",
@@ -26,12 +32,18 @@ export default function Creation() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/api/creation', card);
+      const response = await axios.post('http://localhost:8000/api/card/create', card, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       console.log(response.data);
+      navigate('/cards/user');
     } catch (error) {
       console.error("Erreur lors de la création de la carte", error);
     }
   };
+  
 
   return (
     <div className="creationPage">

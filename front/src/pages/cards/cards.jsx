@@ -20,7 +20,6 @@ export default function Cards() {
                 });
                 setCards(response.data);
                 console.log(token)
-                console.log("request executed")
             } catch (error) {
                 console.error('Erreur lors de la récupération des cartes de l\'utilisateur:', error);
                 setError(error);
