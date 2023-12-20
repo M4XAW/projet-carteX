@@ -28,9 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } catch (Exception $e) {
         echo "Erreur lors de la suppression de la carte : " . $e->getMessage();
     }
-} else {
-    echo "Invalid request method";
-}
+} 
 ?>
 
 <!DOCTYPE html>
@@ -82,6 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<td><img src="' . htmlspecialchars($card['image_url']) . '" alt="Card Image" width="100"></td>';
             echo '<td>
                     <form method="POST" action="">
+                    <a href="modifier.php?cardId=' . $card['id'] . '">Modifier</a>
+                        <form method="POST" action="" style="display:inline;">
                         <input type="hidden" name="cardId" value="' . $card['id'] . '">
                         <button type="submit">Supprimer</button>
                     </form>

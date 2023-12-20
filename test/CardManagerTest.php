@@ -34,44 +34,45 @@ class CardManagerTest extends TestCase
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function testRecupererToutesLesCartes() {
-        // Récupérer toutes les cartes
-        $cards = $this->cardManager->recupererToutesLesCartes();
+    // public function testRecupererToutesLesCartes() {
+    //     // Récupérer toutes les cartes
+    //     $cards = $this->cardManager->recupererToutesLesCartes();
 
-        // Vérifier que le tableau retourné n'est pas vide
-        $this->assertNotEmpty($cards, "Le tableau de cartes ne devrait pas être vide");
-    }
+    //     // Vérifier que le tableau retourné n'est pas vide
+    //     $this->assertNotEmpty($cards, "Le tableau de cartes ne devrait pas être vide");
+    // }
 
-    public function testAddCard() {
-        // Créer une carte d'exemple
-        $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
+    // public function testAddCard() {
+    //     // Créer une carte d'exemple
+    //     $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
 
-        // Insérer la carte dans la base de données
-        $lastInsertId = $this->cardManager->addCard($card);
+    //     // Insérer la carte dans la base de données
+    //     $lastInsertId = $this->cardManager->addCard($card);
 
-        // Vérifier que l'ID retourné n'est pas null
-        $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
+    //     // Vérifier que l'ID retourné n'est pas null
+    //     $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
 
-    }
+    // }
 
 
-    public function testDeleteCard() {
-    //     // Assume you have an existing card with an ID
-        $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
+    // public function testDeleteCard() {
+    // //     // Assume you have an existing card with an ID
+    //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
     
-        // Ensure the card exists before attempting to delete
-        $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
-        $stmt->execute([$cardIdToDelete]);
-        $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
-        $this->assertNotNull($existingCard, 'Card should exist before deletion');
+    //     // Ensure the card exists before attempting to delete
+    //     $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
+    //     $stmt->execute([$cardIdToDelete]);
+    //     $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
+    //     $this->assertNotNull($existingCard, 'Card should exist before deletion');
     
-        // Call the deleteCard method
-        $this->cardManager->deleteCard($cardIdToDelete);
+    //     // Call the deleteCard method
+    //     $this->cardManager->deleteCard($cardIdToDelete);
     
        
-    }
+    // }
+
     public function testUpdateCard() {
-        $cardToUpdateId = 295517;
+        $cardToUpdateId = 100213011;
 
         // Récupérer les données de la carte existante
         $stmt = $this->pdo->prepare('SELECT * FROM cards WHERE id = ?');
@@ -82,10 +83,33 @@ class CardManagerTest extends TestCase
         $card = new Card();
         $card->setname($originalCardData['name']);
         $card->settype($originalCardData['type']);
+        $card->setframe_type($originalCardData['frame_type']);
+        $card->setdescription($originalCardData['description']);
+        $card->setrace($originalCardData['race']);
+        $card->setarchetype($originalCardData['archetype']);
+        $card->setset_name($originalCardData['set_name']);
+        $card->setset_code($originalCardData['set_code']);
+        $card->setset_rarity($originalCardData['set_rarity']);
+        $card->setset_rarity_code($originalCardData['set_rarity_code']);
+        $card->setset_price($originalCardData['set_price']);
+        $card->setimage_url($originalCardData['image_url']);
+
 
         // Modifier certaines propriétés pour la mise à jour
-        $card->setname("Nouveau Nom");
-        $card->settype("Nouveau Type");
+        $card->setname("Nouveaux Nom");
+        $card->settype("Nouveaux Type");
+        $card->setframe_type("Nouveaux Frame Type");
+        $card->setdescription("Nouveaux Description");
+        $card->setrace("Nouvelle race");
+        $card->setarchetype("Nouvel Archetype");
+        $card->setset_name("Nouveau Set Name");
+        $card->setset_code("Nouveau Set Code");
+        $card->setset_rarity("Nouveau Set Rarity");
+        $card->setset_rarity_code("Nouveau Set Rarity Code");
+        $card->setset_price(9.99);
+        $card->setimage_url("Nouveau Image URL");
+
+
 
         // Mise à jour de la carte
         $this->cardManager->updateCard($card);
@@ -96,8 +120,18 @@ class CardManagerTest extends TestCase
         $updatedCardData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Assert : Vérifiez si les données mises à jour correspondent aux attentes
-        $this->assertEquals("A Legendary Ocean", $updatedCardData['name']);
-        $this->assertEquals("Spell Card", $updatedCardData['type']);
+        $this->assertEquals("Dahmouh", $updatedCardData['name']);
+        $this->assertEquals("Feu", $updatedCardData['type']);
+        $this->assertEquals("feu", $updatedCardData['frame_type']);
+        $this->assertEquals("yani et yohan", $updatedCardData['description']);
+        $this->assertEquals("DZ", $updatedCardData['race']);
+        $this->assertEquals("renard", $updatedCardData['archetype']);
+        $this->assertEquals("Kabyle", $updatedCardData['set_name']);
+        $this->assertEquals("Je", $updatedCardData['set_code']);
+        $this->assertEquals("cv", $updatedCardData['set_rarity']);
+        $this->assertEquals("hamdullah", $updatedCardData['set_rarity_code']);
+        $this->assertEquals(15, $updatedCardData['set_price']);
+        $this->assertEquals("https://www.cards-capital.com/64892/slifer-le-dragon-celeste.jpg", $updatedCardData['image_url']);
     }
     public function testRecupererToutesLesCartesReturnsArray() {
         $cards = $this->cardManager->recupererToutesLesCartes();

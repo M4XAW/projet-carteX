@@ -6,6 +6,40 @@ class CardManager {
         $this->pdo = $pdo;
     }
 
+    public function getCardById($id) {
+        // Prépare la requête SQL pour obtenir une carte spécifique par son ID
+        $stmt = $this->pdo->prepare("SELECT * FROM Cards WHERE id = :id");
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        // Exécute la requête
+        $stmt->execute();
+    
+        // Récupère la carte sous forme de tableau associatif
+        $cardArray = $stmt->fetch(PDO::FETCH_ASSOC);
+    
+        if ($cardArray) {
+            // Crée un nouvel objet Card et le remplit avec les données récupérées
+            $card = new Card();
+            $card->setName($cardArray['name']);
+            $card->setType($cardArray['type']);
+            $card->setFrame_Type($cardArray['frame_type']);
+            $card->setDescription($cardArray['description']);
+            $card->setRace($cardArray['race']);
+            $card->setArchetype($cardArray['archetype']);
+            $card->setSet_Name($cardArray['set_name']);
+            $card->setSet_Code($cardArray['set_code']);
+            $card->setSet_Rarity($cardArray['set_rarity']);
+            $card->setSet_Rarity_Code($cardArray['set_rarity_code']);
+            $card->setSet_Price($cardArray['set_price']);
+            $card->setImage_URL($cardArray['image_url']);
+    
+            return $card;
+        } else {
+            return null;
+        }
+    }
+    
+
     public function recupererToutesLesCartes() {
         // Prépare la requête SQL
         $stmt = $this->pdo->prepare("SELECT * FROM Cards");
@@ -93,6 +127,8 @@ class CardManager {
         // Exécute la requête de suppression
         $stmt->execute();
     }
+
+
     public function updateCard(Card $card) {
         // Prépare la requête SQL de mise à jour
         $stmt = $this->pdo->prepare("
