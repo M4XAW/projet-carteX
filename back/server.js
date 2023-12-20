@@ -54,36 +54,53 @@ app.delete('/api/card/:id', async (req, res) => {
         if (conn) conn.release();
     }
 });
-app.post('/api/card', async (req, res) => {
+
+app.post('/api/creation', async (req, res) => {
     let conn;
     try {
         conn = await pool.getConnection();
-        const rows = await conn.query(
-            "INSERT INTO cards (name, type, frame_type, description, race, archetype, set_name, set_code, set_rarity, set_rarity_code, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-            [
-                req.body.name,
-                req.body.type,
-                req.body.frame_type,
-                req.body.description,
-                req.body.race,
-                req.body.archetype,
-                req.body.set_name,
-                req.body.set_code,
-                req.body.set_rarity,
-                req.body.set_rarity_code,
-                req.body.set_price,
-                req.body.image_url
-            ]
-        );
 
-        res.json({ id: rows.insertId, ...req.body });
+        // Insertion dans la table 'cards'
+        const insertCardSql = "INSERT INTO cards (name, type, description, race, archetype, set_name, set_rarity, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        const cardValues = [
+            req.body.name,
+            req.body.type,
+            req.body.description,
+            req.body.race,
+            req.body.archetype,
+            req.body.set_name,
+            req.body.set_rarity,
+            req.body.set_price,
+            req.body.image_url
+        ];
+
+        await conn.query(insertCardSql, cardValues);
+        // const [cardResult] = await conn.query(insertCardSql, cardValues);
+        // const newCardId = cardResult.insertId;
+
+        // // Obtention de l'ID de l'utilisateur à partir du token JWT
+        // // Assurez-vous que votre middleware d'authentification extrait correctement l'ID de l'utilisateur et l'ajoute à req.user
+        // const userId = req.user.id;
+
+        // // Insertion dans la table 'deck'
+        // const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
+        // const deckValues = [userId, newCardId];
+        // await conn.query(insertDeckSql, deckValues);
+
+        // await conn.commit();
+        // res.json({ success: true, cardId: newCardId, message: "Carte créée avec succès" });
     } catch (err) {
+        await conn.rollback();
         console.error(err);
         res.status(500).send('Erreur lors de la création des données');
     } finally {
-        if (conn) conn.release();
+        if (conn) {
+            conn.release();
+        }
     }
 });
+
+
 
 app.post('/api/login', async (req, res) => {
     let conn;
@@ -146,7 +163,7 @@ app.post('/api/signup', async (req, res) => {
         // Création du token avec username
         const token = jwt.sign(
             { 
-                userId: result.insertId, // Utilisation de l'identifiant de l'utilisateur nouvellement créé
+                userId: result.insertId.toString(), // Utilisation de l'identifiant de l'utilisateur nouvellement créé
                 username: username
             },
             process.env.JWT_SECRET,

@@ -6,5 +6,49 @@
     h2 {
         color: var(--white);
         font-size: 3vh;
+        margin-bottom: 2vh;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5vh;
+
+        input {
+            height: 5vh;
+            width: 20%;
+            padding: 0 2vh;
+            font-size: 1.6vh;
+            font-weight: 400;
+            outline: none;
+            color: var(--white);
+            background-color: var(--dark-black);
+            border-radius: 1vh;
+            border: var(--border);
+            transition: all 0.3s ease;
+        
+            &:focus {
+                border-color: var(--grey);
+            }
+        }
+
+        .buttonValid {
+            height: 5vh;
+            width: 20%;
+            font-size: 1.6vh;
+            font-weight: 400;
+            padding: 0 2vh;
+            outline: none;
+            color: var(--white);
+            background-color: var(--dark-green);
+            border-radius: 1vh;
+            border: var(--border-green);
+            transition: all 0.3s ease;
+        
+            &:hover {
+                cursor: pointer;
+                border-color: var(--dark-green);
+            }
+        }
     }
 }

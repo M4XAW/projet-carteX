@@ -10,6 +10,7 @@ import Signup from "./pages/signup/signup";
 import Card from "./pages/card/card";
 import Creation from "./pages/creation/creation";
 import Dashboard from "./pages/dashboard/dashboard";
+import Admin from "./pages/admin/admin";
 import Error from "./pages/error/error";
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route path="/card/:id" element={<Card />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/creation" element={<Creation />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />

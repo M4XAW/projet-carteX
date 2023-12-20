@@ -21,44 +21,58 @@ export default function Signup() {
     return /\S+@\S+\.\S+/.test(email);
   };
 
-  const isValidPassword = (password) => { // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
+  const isValidPassword = (password) => {
+    // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
     return password.length >= 6;
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
-  
+
     if (!isValidEmail(email)) {
       setIncorrect("Email invalide");
       return;
     }
-  
+
     if (!isValidPassword(password)) {
       setIncorrect("Le mot de passe doit contenir au moins 6 caractères");
       return;
     }
-  
+
     try {
       const response = await axios.post("http://localhost:8000/api/signup", {
         username,
         email,
         password,
       });
-  
+
       if (response.status >= 200 && response.status < 300) {
         console.log("Inscription réussie");
         navigate("/login");
       }
     } catch (error) {
-      if (error.response && error.response.status === 409) { // Vérifiez si une adresse email existe déjà dans la base de donnée
-        setIncorrect("Un utilisateur avec cet email existe déjà");
+      if (error.response) {
+        switch (error.response.status) {
+          case 409:
+            setIncorrect("Un utilisateur avec cet email existe déjà");
+            break;
+          case 500:
+            setIncorrect("Problème de serveur, veuillez réessayer plus tard");
+            break;
+          default:
+            setIncorrect(
+              error.response.data.message ||
+                "Une erreur est survenue lors de l'inscription"
+            );
+        }
       } else {
-        console.error("Erreur lors de la requête", error.response?.data.message || error.message);
-        setIncorrect(error.response?.data.message || "Une erreur est survenue lors de l'inscription");
+        console.error("Erreur lors de la requête", error.message);
+        setIncorrect(
+          "Problème de réseau ou erreur inconnue lors de l'inscription"
+        );
       }
     }
   };
-  
 
   return (
     <div className="signup">
