@@ -53,6 +53,17 @@ class CardManagerTest extends TestCase
     //     $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
 
     // }
+    // public function testAddExistingCard() {
+    //     // Assumer qu'une carte avec ce nom existe déjà dans la base de données
+    //     $card = new Card("Nom Existant", "Type", "Frame Type", "Description", "Race", "Archetype", "Set Name", "Set Code", "Set Rarity", "RC", 15.99, "Image URL");
+    
+    //     // Tenter d'insérer la carte existante dans la base de données
+    //     $result = $this->cardManager->addCard($card);
+    
+    //     // Vérifier que la méthode retourne false
+    //     $this->assertFalse($result, "La méthode devrait retourner false pour une carte existante");
+    // }
+    
 
 
     // public function testDeleteCard() {

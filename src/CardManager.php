@@ -20,13 +20,32 @@ class CardManager {
         return $cards;
     }
 
+    public function getCardByName($name) {
+        $stmt = $this->pdo->prepare("SELECT * FROM Cards WHERE name = :name");
+        $stmt->bindValue(':name', $name);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function addCard(Card $card) {
-        // Prépare la requête SQL d'insertion
+        // Vérifie si la carte existe déjà
+        $stmt = $this->pdo->prepare("SELECT * FROM Cards WHERE name = :name");
+        $stmt->bindValue(':name', $card->getName());
+        $stmt->execute();
+
+        if ($stmt->fetch(PDO::FETCH_ASSOC)) {
+            // La carte existe déjà
+            return false;
+        }
+
+    
+        // Si la carte n'existe pas, procéder à l'insertion
         $stmt = $this->pdo->prepare("
             INSERT INTO Cards (
-                name,type,frame_type,description,race, 
-                archetype,set_name,set_code,set_rarity, 
-                set_rarity_code,set_price,image_url
+                name, type, frame_type, description, race, 
+                archetype, set_name, set_code, set_rarity, 
+                set_rarity_code, set_price, image_url
             ) VALUES (
                 :nom, :type, :frame_type, :description, :race, 
                 :archetype, :set_name, :set_code, :set_rarity, 
@@ -34,24 +53,13 @@ class CardManager {
             )
         ");
     
-        // Associe les valeurs aux paramètres dans la requête
-        $stmt->bindValue(':nom', $card->getname());
-        $stmt->bindValue(':type', $card->getType());
-        $stmt->bindValue(':frame_type', $card->getFrame_Type());
-        $stmt->bindValue(':description', $card->getDescription());
-        $stmt->bindValue(':race', $card->getrace());
-        $stmt->bindValue(':archetype', $card->getarchetype());
-        $stmt->bindValue(':set_name', $card->getset_name());
-        $stmt->bindValue(':set_code', $card->getset_code());
-        $stmt->bindValue(':set_rarity', $card->getset_rarity());
-        $stmt->bindValue(':set_rarity_code', $card->getset_rarity_code());
-        $stmt->bindValue(':set_price', $card->getset_price());
-        $stmt->bindValue(':image_url', $card->getimage_url());
+        // Associer les valeurs aux paramètres dans la requête
+        // ...
     
-        // Exécute la requête d'insertion
+        // Exécuter la requête d'insertion
         $stmt->execute();
     
-        // Retourne l'ID de la carte nouvellement insérée
+        // Retourner l'ID de la carte nouvellement insérée
         return $this->pdo->lastInsertId();
     }
     
