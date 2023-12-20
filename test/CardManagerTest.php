@@ -55,9 +55,9 @@ class CardManagerTest extends TestCase
     // }
 
 
-    // // public function testDeleteCard() {
+    // public function testDeleteCard() {
     // //     // Assume you have an existing card with an ID
-    // //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
+    //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
     
     //     // Ensure the card exists before attempting to delete
     //     $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
@@ -69,7 +69,7 @@ class CardManagerTest extends TestCase
     //     $this->cardManager->deleteCard($cardIdToDelete);
     
        
-    // // }
+    // }
 
 
     
