@@ -6,6 +6,20 @@ class CardManager {
         $this->pdo = $pdo;
     }
 
+    public function recupererToutesLesCartes() {
+        // Prépare la requête SQL
+        $stmt = $this->pdo->prepare("SELECT * FROM Cards");
+    
+        // Exécute la requête SQL
+        $stmt->execute();
+    
+        // Récupère toutes les lignes de la table "Cards" sous forme de tableau associatif
+        $cards = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        // Retourne un tableau d'objets de type "Card"
+        return $cards;
+    }
+
     public function addCard(Card $card) {
         // Prépare la requête SQL d'insertion
         $stmt = $this->pdo->prepare("
