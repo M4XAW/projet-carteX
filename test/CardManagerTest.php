@@ -99,9 +99,17 @@ class CardManagerTest extends TestCase
         $this->assertEquals("A Legendary Ocean", $updatedCardData['name']);
         $this->assertEquals("Spell Card", $updatedCardData['type']);
     }
-    
-    
+    public function testRecupererToutesLesCartesReturnsArray() {
+        $cards = $this->cardManager->recupererToutesLesCartes();
+        $this->assertIsArray($cards, 'recupererToutesLesCartes devrait retourner un tableau');
     }
+
+
+
+
+}
+    
+   
 ?>
 
         
