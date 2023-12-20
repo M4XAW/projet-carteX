@@ -16,13 +16,15 @@ try {
 
 
 
+$cardDeleted = false; // Flag to track if a card was deleted
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cardId = $_POST['cardId'];
     $cardManager = new CardManager($pdo);
 
     try {
         $cardManager->deleteCard($cardId);
-        echo "Card deleted successfully";
+        $cardDeleted = true; // Set flag to true if card is deleted successfully
     } catch (PDOException $e) {
         echo "Erreur PDO lors de la suppression de la carte : " . $e->getMessage();
     } catch (Exception $e) {
@@ -33,15 +35,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html>
+    
 <head>
     <title>Liste des cartes</title>
     <link rel="stylesheet" type="text/css" href="Accueil.css">
+    <title>Liste des cartes</title>
+    <link rel="stylesheet" type="text/css" href="Accueil.css">
+    <script>
+    // JavaScript to display alert if a card is deleted
+    window.onload = function() {
+        <?php if ($cardDeleted) : ?>
+            alert('Card deleted successfully');
+        <?php endif; ?>
+    };
+    </script>
 </head>
 
 <body>
 <header>
     <h1>Ajouter une carte</h1>
     <a href="Ajouter.php">Ajouter</a> <!-- Link to accueil.php -->
+    <a href="displayUsers.php">Liste des users</a> <!-- Link to displayUsers.php -->
 </header>
 <h1>Liste des cartes</h1>
 <table>
@@ -59,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <th>Code de la rareté</th>
             <th>Prix de l'ensemble</th>
             <th>Image</th>
-            <th>Action</th> <!-- Add a new column for the delete buttons -->
+            <th>Action</th> 
         </tr>
     </thead>
     <tbody>

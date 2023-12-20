@@ -63,11 +63,9 @@ class CardManager {
     }
 
     public function addCard(Card $card) {
-        // Vérifie si la carte existe déjà
         if (!is_numeric($card->getset_price())) {
             throw new InvalidArgumentException("Le prix de l'ensemble doit être un nombre.");
         }
-    
         $stmt = $this->pdo->prepare("SELECT * FROM Cards WHERE name = :name");
         $stmt->bindValue(':name', $card->getName());
         $stmt->execute();

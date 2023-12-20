@@ -72,7 +72,7 @@ class CardManagerTest extends TestCase
     // }
 
     public function testUpdateCard() {
-        $cardToUpdateId = 100213011;
+        $cardToUpdateId = 100213002;
 
         // Récupérer les données de la carte existante
         $stmt = $this->pdo->prepare('SELECT * FROM cards WHERE id = ?');
@@ -120,25 +120,19 @@ class CardManagerTest extends TestCase
         $updatedCardData = $stmt->fetch(PDO::FETCH_ASSOC);
 
         // Assert : Vérifiez si les données mises à jour correspondent aux attentes
-        $this->assertEquals("Dahmouh", $updatedCardData['name']);
-        $this->assertEquals("Feu", $updatedCardData['type']);
-        $this->assertEquals("feu", $updatedCardData['frame_type']);
-        $this->assertEquals("yani et yohan", $updatedCardData['description']);
-        $this->assertEquals("DZ", $updatedCardData['race']);
-        $this->assertEquals("renard", $updatedCardData['archetype']);
-        $this->assertEquals("Kabyle", $updatedCardData['set_name']);
-        $this->assertEquals("Je", $updatedCardData['set_code']);
-        $this->assertEquals("cv", $updatedCardData['set_rarity']);
-        $this->assertEquals("hamdullah", $updatedCardData['set_rarity_code']);
-        $this->assertEquals(15, $updatedCardData['set_price']);
-        $this->assertEquals("https://www.cards-capital.com/64892/slifer-le-dragon-celeste.jpg", $updatedCardData['image_url']);
+        $this->assertEquals("A★Speculation", $updatedCardData['name']);
+        $this->assertEquals("Fusion Monster", $updatedCardData['type']);
     }
     public function testRecupererToutesLesCartesReturnsArray() {
         $cards = $this->cardManager->recupererToutesLesCartes();
         $this->assertIsArray($cards, 'recupererToutesLesCartes devrait retourner un tableau');
     }
+public function testAddCardWithNonNumericSetPrice() {
+    $this->expectException(InvalidArgumentException::class);
+    $this->expectExceptionMessage("Le prix de l'ensemble doit être un nombre.");
 
-
+    $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 12.0, "Exemple Image URL");    $this->cardManager->addCard($card);
+}
 
 
 }

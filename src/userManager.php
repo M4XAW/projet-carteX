@@ -10,17 +10,22 @@ class userManager
         $this->pdo = $pdo;
     }
   
-      public function DeleteUsers ($id){
-    try {
-        $sql = "DELETE FROM users WHERE id = :id";
-        $stmt = $this->pdo->prepare($query);
-        $stmt->bindParam(':id_recette', $id_recette);
-        return $stmt->execute();
-    } catch (PDOException $e) {
-        echo "Erreur de suppression de l'utilisateur";
-        return false;
-    }
+ 
+    
+
+
+    public function DeleteUser($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    } 
+      
+    public function getAllUsers() {
+      $stmt = $this->pdo->prepare("SELECT * FROM users");
+      $stmt->execute();
+      return $stmt->fetchAll(PDO::FETCH_ASSOC);
   }
+
 
   
 
