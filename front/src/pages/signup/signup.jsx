@@ -21,45 +21,44 @@ export default function Signup() {
     return /\S+@\S+\.\S+/.test(email);
   };
 
-  const isValidPassword = (password) => {
-    // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
+  const isValidPassword = (password) => { // Oblige l'utilisateur à entrer un mot de passe de 6 caractères minimum
     return password.length >= 6;
   };
 
   const handleSignup = async (e) => {
     e.preventDefault();
-
-    // Validation côté client
+  
     if (!isValidEmail(email)) {
-      setIncorrect("Email invalide"); // Set error message
+      setIncorrect("Email invalide");
       return;
     }
-
+  
     if (!isValidPassword(password)) {
-      setIncorrect("Le mot de passe doit contenir au moins 6 caractères"); // Set error message
+      setIncorrect("Le mot de passe doit contenir au moins 6 caractères");
       return;
     }
-
+  
     try {
       const response = await axios.post("http://localhost:8000/api/signup", {
         username,
         email,
         password,
       });
-
+  
       if (response.status >= 200 && response.status < 300) {
         console.log("Inscription réussie");
         navigate("/login");
-      } else {
-        console.error("Erreur lors de l'inscription");
-        setIncorrect("Erreur lors de l'inscription"); // Afficher le message d'erreur
       }
     } catch (error) {
-      console.error("Erreur lors de la requête", error.response?.data.message || error.message);
-      setIncorrect(error.response?.data.message || "Erreur lors de l'inscription");
+      if (error.response && error.response.status === 409) { // Vérifiez si une adresse email existe déjà dans la base de donnée
+        setIncorrect("Un utilisateur avec cet email existe déjà");
+      } else {
+        console.error("Erreur lors de la requête", error.response?.data.message || error.message);
+        setIncorrect(error.response?.data.message || "Une erreur est survenue lors de l'inscription");
+      }
     }
-    
   };
+  
 
   return (
     <div className="signup">

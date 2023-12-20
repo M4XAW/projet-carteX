@@ -30,6 +30,11 @@ header {
     gap: 0.8vh;
     list-style-type: none;
 
+    .username {
+      color: var(--grey);
+      margin-right: 2vh;
+    }
+
     .disconnect {
       height: 4.5vh;
       width: 4.5vh;

@@ -1,24 +1,23 @@
-import './App.scss';
-import { Routes, Route } from 'react-router-dom';
+import "./App.scss";
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./auth/authContext";
 
-import Header from './components/header/header';
-import Footer from './components/footer/footer';
-import Home from './pages/home/home';
-import Login from './pages/login/login';
-import Signup from './pages/signup/signup';
-import Card from './pages/card/card';
-import Creation from './pages/creation/creation';
-import Dashboard from './pages/dashboard/dashboard';
-import Error from './pages/error/error';
-
-import { AuthProvider } from "./auth/AuthContext"; // Importez le composant AuthProvider
+import Header from "./components/header/header";
+import Footer from "./components/footer/footer";
+import Home from "./pages/home/home";
+import Login from "./pages/login/login";
+import Signup from "./pages/signup/signup";
+import Card from "./pages/card/card";
+import Creation from "./pages/creation/creation";
+import Dashboard from "./pages/dashboard/dashboard";
+import Error from "./pages/error/error";
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Routes>
-        <AuthProvider>
+      <AuthProvider>
+        <Header />
+        <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
@@ -26,9 +25,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/creation" element={<Creation />} />
           <Route path="*" element={<Error />} />
-        </AuthProvider>
-      </Routes>
-      <Footer />
+        </Routes>
+        <Footer />
+      </AuthProvider>
     </div>
   );
 }

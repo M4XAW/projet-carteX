@@ -1,17 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "../../auth/authContext"; // Importez le hook useAuth
 import "./header.scss";
-import { useAuth } from "../../auth/AuthContext"; // Importez le hook useAuth
 
 export default function Header() {
-  const { isLoggedIn, setIsLoggedIn } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état isLoggedIn
-
-  // Gestionnaire de déconnexion
+  const { isLoggedIn, user, logout } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état et aux fonctions de connexion/déconnexion
+  const navigate = useNavigate();
+  
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsLoggedIn(false); // Mettre à jour l'état après la déconnexion
-    // Ajoutez ici toute logique supplémentaire nécessaire après la déconnexion
+    logout();
+    navigate("/login");
   };
+
+  const isAdmin = user && (user.username === 'admin' || user.id === 1);
 
   return (
     <header>
@@ -24,7 +25,6 @@ export default function Header() {
       <nav>
         <ul>
           {!isLoggedIn ? (
-            // Si l'utilisateur n'est pas connecté
             <>
               <li>
                 <Link to="/login">Connexion</Link>
@@ -34,14 +34,27 @@ export default function Header() {
               </li>
             </>
           ) : (
-            // Si l'utilisateur est connecté
             <>
+              {user && user.username ? (
+                <li>
+                  <small className="username">Connecté en tant que {user.username}</small>
+                </li>
+              ) : (
+                <li>
+                  <span>Error</span>
+                </li>
+              )}
               <li>
                 <Link to="/">Cartes</Link>
               </li>
               <li>
                 <Link to="/dashboard">Dashboard</Link>
               </li>
+              {isAdmin && (
+                <li>
+                  <Link to="/admin">Admin</Link>
+                </li>
+              )}
               <li>
                 <button className="disconnect" onClick={handleLogout}></button>
               </li>

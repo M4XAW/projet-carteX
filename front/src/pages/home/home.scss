@@ -5,11 +5,15 @@
 
     .filter {
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         margin-bottom: 3vh;
-        gap: 1.5vh;
         width: 100%;
+        
+        .buttonsContainer {
+            display: flex;
+            gap: 1.5vh;
+        }
 
         .search {
             height: 5vh;

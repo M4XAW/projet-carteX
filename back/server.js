@@ -85,7 +85,6 @@ app.post('/api/card', async (req, res) => {
     }
 });
 
-
 app.post('/api/login', async (req, res) => {
     let conn;
     try {
@@ -96,38 +95,41 @@ app.post('/api/login', async (req, res) => {
         } else {
             const match = await bcrypt.compare(req.body.password, rows[0].password);
             if (match) {
-                // Création du token
+                // Création du token avec username
                 const token = jwt.sign(
-                    { userId: rows[0].id },
+                    { 
+                        userId: rows[0].id,
+                        username: rows[0].username
+                    },
                     process.env.JWT_SECRET,
                     { expiresIn: '1h' }
                 );
 
-                res.json({ token: token, user: rows[0] }); // Envoi du token
+                res.json({ token: token, user: { id: rows[0].id, username: rows[0].username } }); // Envoi du token et de l'utilisateur
 
             } else {
                 res.status(401).send('Mot de passe incorrect');
             }
         }
     } catch (err) {
-        console.error("Erreur lors de la connexion", err); // "Erreur lors de la connexion
+        console.error("Erreur lors de la connexion", err);
         res.status(500).send('Erreur de connexion');
     } finally {
         if (conn) conn.release();
     }
 });
 
+
 app.post('/api/signup', async (req, res) => {
     const { username, email, password } = req.body;
 
     if (!username || !email || !password) {
-      return res.status(400).send('Données manquantes');
+        return res.status(400).send('Données manquantes');
     }
 
     let conn;
-  
     try {
-        const conn = await pool.getConnection();
+        conn = await pool.getConnection();
     
         // Vérifier si l'email existe déjà
         const existingUser = await conn.query('SELECT email FROM users WHERE email = ?', [email]);
@@ -139,11 +141,14 @@ app.post('/api/signup', async (req, res) => {
         const hashedPassword = await bcrypt.hash(password, 10);
   
         // Insertion du nouvel utilisateur
-        await conn.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
+        const result = await conn.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', [username, email, hashedPassword]);
     
-        // Création du token
+        // Création du token avec username
         const token = jwt.sign(
-            { userId: username }, // ou un identifiant unique
+            { 
+                userId: result.insertId, // Utilisation de l'identifiant de l'utilisateur nouvellement créé
+                username: username
+            },
             process.env.JWT_SECRET,
             { expiresIn: '1h' }
         );
@@ -159,6 +164,7 @@ app.post('/api/signup', async (req, res) => {
         if (conn) conn.release();
     }
 });
+
 app.listen(8000, () => {
     console.log("Started on PORT 8000")
 })
