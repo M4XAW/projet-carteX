@@ -13,7 +13,7 @@ export default function Cards() {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/cards/list', {
+                const response = await axios.get('http://localhost:8000/api/cards/user', {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -29,6 +29,10 @@ export default function Cards() {
 
         fetchCards();
     }, [token]);
+
+    const handleDelete = async (cardId) => {
+
+    };
 
     if (isLoading) {
         return <p>Chargement...</p>;
@@ -57,7 +61,7 @@ export default function Cards() {
                             <div className="cardsButtons">
                                 <Link className='view' to={`/card/${card.id}`}>Voir</Link>
                                 <Link className='edit' to={`/creation/${card.id}`}>Modifier</Link>
-                                <button className="delete">Supprimer</button>
+                                <button className="delete" onClick={() => handleDelete(card.id)}></button>
                             </div>
                         </div>
                     ))

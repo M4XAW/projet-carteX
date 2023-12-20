@@ -1,6 +1,5 @@
 import "./App.scss";
 import { Routes, Route } from "react-router-dom";
-import { AuthProvider } from "./auth/authContext";
 
 import Header from "./components/header/header";
 import Footer from "./components/footer/footer";
@@ -13,23 +12,29 @@ import Cards from "./pages/cards/cards";
 import Admin from "./pages/admin/admin";
 import Error from "./pages/error/error";
 
+import { useAuth } from "./auth/authContext";
+
 function App() {
+  const { isLoggedIn } = useAuth();
+
   return (
     <div className="App">
-      <AuthProvider>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/card/:id" element={<Card />} />
-          <Route path="/cards" element={<Cards />} />
-          <Route path="/creation" element={<Creation />} />
-          <Route path="/admin" element={<Admin />} />
+          {isLoggedIn && ( // Affichez les routes protégées uniquement si l'utilisateur est authentifié
+            <>
+              <Route path="/card/:id" element={<Card />} />
+              <Route path="/cards/user" element={<Cards />} />
+              <Route path="/creation" element={<Creation />} />
+              <Route path="/admin" element={<Admin />} />
+            </>
+          )}
           <Route path="*" element={<Error />} />
         </Routes>
         <Footer />
-      </AuthProvider>
     </div>
   );
 }

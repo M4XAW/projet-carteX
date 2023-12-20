@@ -31,7 +31,7 @@ app.get('/api/cards', async (req, res) => {
     }
 });
 
-app.get('/api/cards/list', async (req, res) => {
+app.get('/api/cards/user', async (req, res) => {
     let conn;
     try {
         const token = req.headers.authorization.split(' ')[1];
