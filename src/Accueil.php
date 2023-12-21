@@ -69,14 +69,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <tr>
             <th>Nom</th>
             <th>Type</th>
-            <th>Frame Type</th>
             <th>Description</th>
             <th>Race</th>
             <th>Archetype</th>
             <th>Nom de l'ensemble</th>
-            <th>Code de l'ensemble</th>
-            <th>Rareté de l'ensemble</th>
-            <th>Code de la rareté</th>
             <th>Prix de l'ensemble</th>
             <th>Image</th>
             <th>Action</th> 
@@ -88,14 +84,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<tr>';
             echo '<td>' . htmlspecialchars($card['name']) . '</td>';
             echo '<td>' . htmlspecialchars($card['type']) . '</td>';
-            echo '<td>' . htmlspecialchars($card['frame_type']) . '</td>';
             echo '<td>' . htmlspecialchars($card['description']) . '</td>';
             echo '<td>' . htmlspecialchars($card['race']) . '</td>';
             echo '<td>' . htmlspecialchars($card['archetype']) . '</td>';
             echo '<td>' . htmlspecialchars($card['set_name']) . '</td>';
-            echo '<td>' . htmlspecialchars($card['set_code']) . '</td>';
             echo '<td>' . htmlspecialchars($card['set_rarity']) . '</td>';
-            echo '<td>' . htmlspecialchars($card['set_rarity_code']) . '</td>';
             echo '<td>' . htmlspecialchars($card['set_price']) . '</td>';
             echo '<td><img src="' . htmlspecialchars($card['image_url']) . '" alt="Card Image" width="100"></td>';
             echo '<td>
