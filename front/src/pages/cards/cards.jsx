@@ -74,7 +74,7 @@ export default function Cards() {
 
                             <div className="cardsButtons">
                                 <Link className='view' to={`/card/${card.id}`}>Voir</Link>
-                                <Link className='edit' to={`/creation/${card.id}`}>Modifier</Link>
+                                <Link className='edit' to={`/edit/${card.id}`}>Modifier</Link>
                                 <button className="delete" onClick={() => handleDelete(card.id)}>Supprimer</button>
                             </div>
                         </div>

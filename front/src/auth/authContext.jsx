@@ -14,9 +14,15 @@ export const AuthProvider = ({ children }) => {
     const storedToken = localStorage.getItem('token');
     if (storedToken) {
       const decodedToken = jwtDecode(storedToken);
-      setUser({ username: decodedToken.username });
-      setIsLoggedIn(true);
-      setToken(storedToken); // Mise à jour de l'état token
+      const isTokenExpired = decodedToken.exp * 1000 < Date.now();
+
+      if (isTokenExpired) {
+        logout(); // Déconnexion si le token est expiré
+      } else {
+        setUser({ username: decodedToken.username });
+        setIsLoggedIn(true);
+        setToken(storedToken);
+      }
     }
   }, []);
 
@@ -41,3 +47,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );  
 };
+
+

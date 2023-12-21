@@ -8,6 +8,7 @@ import Login from "./pages/login/login";
 import Signup from "./pages/signup/signup";
 import Card from "./pages/card/card";
 import Creation from "./pages/creation/creation";
+import Edit from "./pages/edit/edit";
 import Cards from "./pages/cards/cards";
 import Admin from "./pages/admin/admin";
 import Error from "./pages/error/error";
@@ -30,6 +31,7 @@ function App() {
               <Route path="/card/:id" element={<Card />} />
               <Route path="/cards/user" element={<Cards />} />
               <Route path="/creation" element={<Creation />} />
+              <Route path="/edit/:id" element={<Edit />} />
               {isAdmin && (
                 <Route path="/admin" element={<Admin />} />
               )}
