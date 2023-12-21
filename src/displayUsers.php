@@ -20,8 +20,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
 </head>
 <header>
     <h1>Liste des utilisateurs</h1>
-    <a href="Ajouter.php">Ajouter</a> <!-- Link to accueil.php -->
-    <a href="accueil.php">Accueil</a> <!-- Link to displayUsers.php -->
+    <a href="Accueil.php">
+        <img src="https://cdn-icons-png.flaticon.com/512/2948/2948025.png" alt="Ajouter" style="width: 40px; height: auto;">
+    </a> <!-- Lien vers Ajouter.php avec image miniature -->
+    <a href="Ajouter.php">
+        <img src="https://www.play-in.com/images/YGO-Back-JP.png" alt="Ajouter" style="width: 40px; height: auto;">
+    </a> 
 </header>
 <body>
     <h1>All User Information</h1>
@@ -45,9 +49,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
                     <td>
                         <form method="POST" action="">
                             <input type="hidden" name="deleteUserId" value="<?php echo $user['id']; ?>">
-                            <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')">Delete</button>
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')" style="padding: 0; border: none; background: none;">
+                                <img src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="" width="20" height="20"> <!-- Adjust width and height as needed -->
+                                Delete
+                            </button>
                         </form>
                     </td>
+<!-- ... -->
+
                 </tr>
             <?php endforeach; ?>
         </table>

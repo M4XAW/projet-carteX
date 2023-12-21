@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img src="https://www.play-in.com/images/YGO-Back-JP.png" alt="Ajouter" style="width: 40px; height: auto;">
     </a> <!-- Lien vers Ajouter.php avec image miniature -->
     <a href="displayUsers.php">
-        <img src="https://previews.123rf.com/images/graphicstudiomh/graphicstudiomh2012/graphicstudiomh201200090/160799586-ic%C3%B4ne-ou-logo-de-signe-de-gestion-des-utilisateurs-concept-de-param%C3%A8tres-de-compte-illustration-de.jpg" alt="Liste des utilisateurs" style="width: 40px; height: auto;">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnuulasL1tQCP0NLN9oBQ_kGtAYwQhISnDsg&usqp=CAU" alt="Liste des utilisateurs" style="width: 40px; height: auto;">
     </a> <!-- Lien vers displayUsers.php avec image miniature -->
 </nav>
 
@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <th>Race</th>
             <th>Archetype</th>
             <th>Nom de l'ensemble</th>
+            <th>Rareté de l'ensemble</th>
             <th>Prix de l'ensemble</th>
             <th>Image</th>
             <th>Action</th> 
