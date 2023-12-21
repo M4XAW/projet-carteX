@@ -55,9 +55,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <a href="displayUsers.php">
         <img src="https://previews.123rf.com/images/graphicstudiomh/graphicstudiomh2012/graphicstudiomh201200090/160799586-ic%C3%B4ne-ou-logo-de-signe-de-gestion-des-utilisateurs-concept-de-param%C3%A8tres-de-compte-illustration-de.jpg" alt="Liste des utilisateurs" style="width: 40px; height: auto;">
     </a> <!-- Lien vers displayUsers.php avec image miniature -->
-    </header>
     <h1>Ajouter une carte</h1>
-    <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
+
+    </header>
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
         
         <label for="name">Nom de la carte:</label>
         <input type="text" name="name" id="name" required><br><br>
