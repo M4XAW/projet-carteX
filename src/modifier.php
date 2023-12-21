@@ -57,14 +57,11 @@ if ($card instanceof Card) {
             <label for="name">Nom de la carte:</label>
             <input type="text" name="name" id="name" value="<?php echo $card->getName(); ?>" required><br><br>
             <input type="text" name="type" id="type" value="<?php echo $card->getType(); ?>" required><br><br>
-            <input type="text" name="frame_type" id="frame_type" value="<?php echo $card->getFrame_Type(); ?>" required><br><br>
             <input type="text" name="description" id="description" value="<?php echo $card->getDescription(); ?>" required><br><br>
             <input type="text" name="race" id="race" value="<?php echo $card->getRace(); ?>" required><br><br>
             <input type="text" name="archetype" id="archetype" value="<?php echo $card->getArchetype(); ?>" required><br><br>
             <input type="text" name="set_name" id="set_name" value="<?php echo $card->getSet_Name(); ?>" required><br><br>
-            <input type="text" name="set_code" id="set_code" value="<?php echo $card->getSet_Code(); ?>" required><br><br>
             <input type="text" name="set_rarity" id="set_rarity" value="<?php echo $card->getSet_Rarity(); ?>" required><br><br>
-            <input type="text" name="set_rarity_code" id="set_rarity_code" value="<?php echo $card->getSet_Rarity_Code(); ?>" required><br><br>
             <input type="number" name="set_price" id="set_price" value="<?php echo $card->getSet_Price(); ?>" required><br><br>
             <input type="text" name="image_url" id="image_url" value="<?php echo $card->getImage_URL(); ?>" required><br><br>
 
