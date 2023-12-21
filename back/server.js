@@ -2,6 +2,7 @@ const express = require('express')
 const mariadb = require('mariadb')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
+const axios = require('axios');
 
 require('dotenv').config();
 const app = express()
@@ -37,6 +38,7 @@ app.get('/api/cards/user', async (req, res) => {
         const token = req.headers.authorization.split(' ')[1];
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.userId;
+        
 
         conn = await pool.getConnection();
         const rows = await conn.query("SELECT c.* FROM cards c JOIN deck d ON c.id = d.card_id WHERE d.user_id = ?", [userId]);
@@ -106,34 +108,58 @@ app.post('/api/card/create', async (req, res) => {
         const decoded = jwt.verify(token, process.env.JWT_SECRET);
         const userId = decoded.userId;
 
+        const cardInfoResponse = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?name=${req.body.name}`);
+        const cardInfo = cardInfoResponse.data.data[0];
+
+        if (!cardInfo || !cardInfo.name) {
+            return res.status(404).json({ success: false, message: "La carte n'existe pas dans la base de données externe." });
+        }
+
         conn = await pool.getConnection();
         await conn.beginTransaction();
 
-        // Insertion dans la table 'cards'
-        const insertCardSql = "INSERT INTO cards (name, type, description, race, archetype, set_name, set_rarity, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        const cardValues = [
-            req.body.name,
-            req.body.type,
-            req.body.description,
-            req.body.race,
-            req.body.archetype,
-            req.body.set_name,
-            req.body.set_rarity,
-            req.body.set_price,
-            req.body.image_url
-        ];
+        // Check if the card already exists in the 'cards' table
+        const existingCard = await conn.query("SELECT id FROM cards WHERE name = ?", [cardInfo.name]);
 
-        const result = await conn.query(insertCardSql, cardValues);
-        const insertCardId = result.insertId.toString();
+        if (existingCard.length === 0) {
+            // Card doesn't exist, insert it into the 'cards' table
+            const insertCardSql = "INSERT INTO cards (name, type, description, race, archetype, set_name, set_rarity, set_price, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            const cardValues = [
+                cardInfo.name,
+                cardInfo.type,
+                cardInfo.desc,
+                cardInfo.race,
+                cardInfo.archetype,
+                cardInfo.card_sets[0].set_name,  // Assuming the card has at least one set
+                cardInfo.card_sets[0].set_rarity, // Assuming the card has at least one set
+                req.body.set_price,
+                cardInfo.card_images[0].image_url // Assuming the card has at least one image
+            ];
 
-        // Insertion dans la table 'deck'
-        const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
-        const deckValues = [userId, insertCardId];
-        
-        await conn.query(insertDeckSql, deckValues);
+            const result = await conn.query(insertCardSql, cardValues);
+            const insertCardId = result.insertId.toString();
 
-        await conn.commit();
-        res.json({ success: true, cardId: insertCardId, message: "Carte créée avec succès" });
+            // Insertion dans la table 'deck'
+            const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
+            const deckValues = [userId, insertCardId];
+
+            await conn.query(insertDeckSql, deckValues);
+
+            await conn.commit();
+            res.json({ success: true, cardId: insertCardId, message: "Carte créée avec succès" });
+        } else {
+            // Card already exists in the 'cards' table
+            const cardId = existingCard[0].id.toString();
+
+            // Insertion dans la table 'deck'
+            const insertDeckSql = "INSERT INTO deck (user_id, card_id) VALUES (?, ?)";
+            const deckValues = [userId, cardId];
+
+            await conn.query(insertDeckSql, deckValues);
+
+            await conn.commit();
+            res.json({ success: true, cardId: cardId, message: "Carte déjà existante, ajoutée au deck avec succès" });
+        }
     } catch (err) {
         await conn.rollback();
         console.error(err);
