@@ -63,13 +63,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="name">Nom de la carte:</label>
         <input type="text" name="name" id="name" required><br><br>
 
-        <label for="type">Type de carte:</label>
+        <label for="type">Type de carte:
+            <select>  
+                <option value="Monstre">Monstre</option>  
+                <option value="Magie">Magie</option>  
+                <option value="Piège">Piège</option>
+                <option value="Monstre Rituel">Monstre Rituel</option>
+                <option value="Monstre Fusion">Monstre Fusion</option>
+                <option value="Monstre Synchro">Monstre Synchro</option>
+                <option value="Monstre Xyz">Monstre Xyz</option>
+                </select>
+            </label>
         <input type="text" name="type" id="type" required><br><br>
 
         <label for="description">Description:</label>
         <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
 
-        <label for="race">Race:</label>
+        <label for="race">Race: 
+            <select>
+                <option value="Bête">Bête</option>
+                <option value="Bête Ailée">Bête Ailée</option>
+                <option value="Bête-Divine">Bête-Divine</option>
+                <option value="Bête-Guerrier">Bête-Guerrier</option>
+                <option value="Cyberse">Cyberse</option>
+                <option value="Démon">Démon</option>
+                <option value="Dinosaure">Dinosaure</option>
+                <option value="Dragon">Dragon</option>
+                <option value="Elfe">Elfe</option>
+                <option value="Guerrier">Guerrier</option>
+                <option value="Machine">Machine</option>
+                <option value="Magicien">Magicien</option>
+                <option value="Plante">Plante</option>
+                <option value="Poisson">Poisson</option>
+                <option value="Psychique">Psychique</option>
+                <option value="Pyro">Pyro</option>
+                <option value="Rocher">Rocher</option>
+                <option value="Reptile">Reptile</option>
+                <option value="Serpent de Mer">Serpent de Mer</option>
+                <option value="Tonnerre">Tonnerre</option>
+                <option value="Wyrm">Wyrm</option>
+                <option value="Zombie">Zombie</option>
+                </select>
+
+        </label>
         <input type="text" name="race" id="race" required><br><br>
 
         <label for="archetype">Archetype:</label>
@@ -83,10 +119,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="set_rarity" id="set_rarity" required><br><br>
 
         <label for="set_price">Prix de l'ensemble:</label>
-        <input type="text" name="set_price" id="set_price" required><br><br>
+        
+        <input type="number" name="set_price" id="set_price" required><br><br>
 
         <label for="image_url">URL de l'image:</label>
         <input type="text" name="image_url" id="image_url" required><br><br>
+        <h3>Aide pour l'image  : <a href="https://www.yugiohcardmaker.net/"><img src="https://e7.pngegg.com/pngimages/684/303/png-clipart-computer-icons-chain-hyperlink-symbol-connect-text-technic.png" alt="Ajouter" style="width: 40px; height: 20px;"></a></h2>
+        <br><br>
 
         <input type="submit" value="Ajouter la carte">
     </form>
