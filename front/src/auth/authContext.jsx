@@ -8,28 +8,31 @@ export const useAuth = () => useContext(AuthContext);
 export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token') || null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); // Ajoutez cet état pour les informations de l'utilisateur
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      setUser({ username: decodedToken.username }); // Définissez l'utilisateur avec le nom d'utilisateur décodé
+    const storedToken = localStorage.getItem('token');
+    if (storedToken) {
+      const decodedToken = jwtDecode(storedToken);
+      setUser({ username: decodedToken.username });
       setIsLoggedIn(true);
+      setToken(storedToken); // Mise à jour de l'état token
     }
   }, []);
 
-  const login = (token) => {
-    localStorage.setItem('token', token);
-    const decodedToken = jwtDecode(token);
-    setUser({ username: decodedToken.username }); // Mettez à jour l'état de l'utilisateur
+  const login = (newToken) => {
+    localStorage.setItem('token', newToken);
+    const decodedToken = jwtDecode(newToken);
+    setUser({ username: decodedToken.username });
     setIsLoggedIn(true);
+    setToken(newToken); // Mise à jour de l'état token
   };
 
   const logout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    setUser(null); // Réinitialisez l'état de l'utilisateur
+    setUser(null);
+    setToken(null); // Réinitialisez l'état token
   };
 
   return (

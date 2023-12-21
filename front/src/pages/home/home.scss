@@ -79,8 +79,10 @@
     }
 
     .card {
-        img {
-            border-radius: 1vh;
+        a {            
+            img {
+                border-radius: 1vh;
+            }
         }
 
         h3, p {

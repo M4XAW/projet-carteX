@@ -40,14 +40,15 @@
             padding: 0 2vh;
             outline: none;
             color: var(--white);
-            background-color: var(--dark-green);
+            background-color: var(--dark-black);
             border-radius: 1vh;
             border: var(--border-green);
+            background-color: var(--green-opacity);
             transition: all 0.3s ease;
         
             &:hover {
                 cursor: pointer;
-                border-color: var(--dark-green);
+
             }
         }
     }

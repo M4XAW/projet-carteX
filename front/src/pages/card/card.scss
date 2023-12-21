@@ -1,7 +1,6 @@
 .cardPage {
   display: flex;
   justify-content: space-between; 
-  // align-items: center;
   padding: 5vh;
   min-height: 90vh;
   width: 100%;
@@ -15,11 +14,17 @@
     padding-left: 5vh;
     width: 100%;
 
+    .cardTitleContainer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2vh;
+    }
+
     .cardTitle {
       font-size: 2.5rem;
       font-weight: bold;
       line-height: 1;
-      margin-bottom: 1vh;
     }
   }
 }

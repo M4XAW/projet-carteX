@@ -105,13 +105,16 @@ export default function Creation() {
           onChange={handleChange}
           placeholder="Nom set_price"
         />
-        <input
-          type="text"
-          name="image_url"
-          value={card.image_url}
-          onChange={handleChange}
-          placeholder="Nom image_url"
-        />
+        <div>
+          <input
+            type="text"
+            name="image_url"
+            value={card.image_url}
+            onChange={handleChange}
+            placeholder="Nom image_url"
+          />
+          <a href="https://www.cardmaker.net/yugioh/" target="_blank" rel="noreferrer">Générer l'image de la carte</a>
+        </div>
         <button className="buttonValid" type="submit">Créer la Carte</button>
       </form>
     </div>

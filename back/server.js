@@ -64,20 +64,6 @@ app.get('/api/card/:id', async (req, res) => {
     }
 });
 
-app.get('/api/deck', async (req, res) => {
-    let conn;
-    try {
-        conn = await pool.getConnection();
-        const rows = await conn.query("SELECT * FROM deck WHERE user_id = ?", [req.user.id]);
-        res.json(rows);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Erreur lors de la récupération des données');
-    } finally {
-        if (conn) conn.release();
-    }
-});
-
 app.delete('/api/card/delete/:id', async (req, res) => {
     let conn;
     try {

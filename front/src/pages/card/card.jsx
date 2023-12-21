@@ -33,14 +33,15 @@ export default function Card() {
     <div className="cardPage">
       <img className="cardImage" src={card.image_url} alt={card.name} />
       <div className="cardInfos">
-        <h2 className="cardTitle">{card.name}</h2>
+        <div className="cardTitleContainer">
+          <h2 className="cardTitle">{card.name}</h2>
+          <p>{card.set_rarity}</p>
+        </div>
         <p>Type : {card.type}</p>
         <p>Description : {card.description}</p>
         <p>Race : {card.race}</p>
         <p>Archétype : {card.archetype}</p>
-        <p>Rareté : {card.set_rarity}</p>
         <p>Nom du Set : {card.set_name}</p>
-        <p>Code du Set : {card.set_code}</p>
         <p>Prix du Set : {card.set_price} $</p>
       </div>
     </div>
