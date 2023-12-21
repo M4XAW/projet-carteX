@@ -11,14 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $card = new Card();
         $card->setName($_POST['name']);
         $card->setType($_POST['type']);
-        $card->setFrame_Type($_POST['frame_type']);
         $card->setDescription($_POST['description']);
         $card->setRace($_POST['race']);
         $card->setArchetype($_POST['archetype']);
         $card->setSet_Name($_POST['set_name']);
-        $card->setSet_Code($_POST['set_code']);
         $card->setSet_Rarity($_POST['set_rarity']);
-        $card->setSet_Rarity_Code($_POST['set_rarity_code']);
         $card->setSet_Price($_POST['set_price']);
         $card->setImage_URL($_POST['image_url']);
 
@@ -68,9 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="type">Type de carte:</label>
         <input type="text" name="type" id="type" required><br><br>
 
-        <label for="frame_type">Frame Type:</label>
-        <input type="text" name="frame_type" id="frame_type" required><br><br>
-
         <label for="description">Description:</label>
         <textarea name="description" id="description" rows="4" cols="50" required></textarea><br><br>
 
@@ -83,14 +77,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="set_name">Nom de l'ensemble:</label>
         <input type="text" name="set_name" id="set_name" required><br><br>
 
-        <label for="set_code">Code de l'ensemble:</label>
-        <input type="text" name="set_code" id="set_code" required><br><br>
 
         <label for="set_rarity">Rareté de l'ensemble:</label>
         <input type="text" name="set_rarity" id="set_rarity" required><br><br>
-
-        <label for="set_rarity_code">Code de la rareté de l'ensemble:</label>
-        <input type="text" name="set_rarity_code" id="set_rarity_code" required><br><br>
 
         <label for="set_price">Prix de l'ensemble:</label>
         <input type="text" name="set_price" id="set_price" required><br><br>

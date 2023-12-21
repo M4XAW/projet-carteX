@@ -22,14 +22,11 @@ class CardManager {
             $card = new Card();
             $card->setName($cardArray['name']);
             $card->setType($cardArray['type']);
-            $card->setFrame_Type($cardArray['frame_type']);
             $card->setDescription($cardArray['description']);
             $card->setRace($cardArray['race']);
             $card->setArchetype($cardArray['archetype']);
             $card->setSet_Name($cardArray['set_name']);
-            $card->setSet_Code($cardArray['set_code']);
             $card->setSet_Rarity($cardArray['set_rarity']);
-            $card->setSet_Rarity_Code($cardArray['set_rarity_code']);
             $card->setSet_Price($cardArray['set_price']);
             $card->setImage_URL($cardArray['image_url']);
     
@@ -78,27 +75,23 @@ class CardManager {
         // Si la carte n'existe pas, procéder à l'insertion
         $stmt = $this->pdo->prepare("
             INSERT INTO Cards (
-                name, type, frame_type, description, race, 
-                archetype, set_name, set_code, set_rarity, 
-                set_rarity_code, set_price, image_url
+                name, type, description, race, 
+                archetype, set_name, set_rarity, set_price, image_url
             ) VALUES (
-                :name, :type, :frame_type, :description, :race, 
-                :archetype, :set_name, :set_code, :set_rarity, 
-                :set_rarity_code, :set_price, :image_url
+                :name, :type, :description, :race, 
+                :archetype, :set_name, :set_rarity, 
+                :set_price, :image_url
             )
         ");
     
         // Bind the parameters with values from the Card object
         $stmt->bindValue(':name', $card->getName());
         $stmt->bindValue(':type', $card->getType());
-        $stmt->bindValue(':frame_type', $card->getFrame_Type());
         $stmt->bindValue(':description', $card->getDescription());
         $stmt->bindValue(':race', $card->getRace());
         $stmt->bindValue(':archetype', $card->getArchetype());
         $stmt->bindValue(':set_name', $card->getSet_Name());
-        $stmt->bindValue(':set_code', $card->getSet_Code());
         $stmt->bindValue(':set_rarity', $card->getSet_Rarity());
-        $stmt->bindValue(':set_rarity_code', $card->getSet_Rarity_Code());
         $stmt->bindValue(':set_price', $card->getSet_Price());
         $stmt->bindValue(':image_url', $card->getImage_URL());
     
@@ -131,7 +124,7 @@ class CardManager {
         // Prépare la requête SQL de mise à jour
         $stmt = $this->pdo->prepare("
             UPDATE Cards 
-            SET name = :name, type = :type, description = :description, race = :race, archetype = :archetype, set_name = :set_name, set_code = :set_code, set_rarity = :set_rarity, set_rarity_code = :set_rarity_code, set_price = :set_price, image_url = :image_url
+            SET name = :name, type = :type, description = :description, race = :race, archetype = :archetype, set_name = :set_name, set_rarity = :set_rarity, set_price = :set_price, image_url = :image_url
             WHERE name = :oldName
         ");
     
@@ -143,9 +136,7 @@ class CardManager {
         $stmt->bindValue(':race', $card->getrace());
         $stmt->bindValue(':archetype', $card->getarchetype());
         $stmt->bindValue(':set_name', $card->getset_name());
-        $stmt->bindValue(':set_code', $card->getset_code());
         $stmt->bindValue(':set_rarity', $card->getset_rarity());
-        $stmt->bindValue(':set_rarity_code', $card->getset_rarity_code());
         $stmt->bindValue(':set_price', $card->getset_price());
         $stmt->bindValue(':image_url', $card->getimage_url());
     
