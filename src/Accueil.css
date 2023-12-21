@@ -17,6 +17,23 @@ header {
     padding: 20px;
     text-align: center;
     transition: background-color 0.3s ease-in-out;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* Ombre portée */
+    font-family: 'Arial', sans-serif; /* Police de caractère */
+}
+
+header:hover {
+    background-color: #444; /* Changement de couleur au survol */
+}
+
+@media screen and (max-width: 600px) {
+    header {
+        padding: 10px; /* Responsive padding */
+    }
+}
+
+.logo {
+    height: 50px; /* Taille du logo */
+    vertical-align: middle; /* Alignement vertical */
 }
 
 header h1 {
@@ -82,4 +99,13 @@ table {
 /* Add hover effect for table rows */
 tbody tr:hover {
     background-color: #e0e0e0;
+}
+nav {
+    position: absolute;
+    top: 10px; 
+    right: 10px; 
+}
+
+nav a {
+    margin-left: 10px; /* Espace entre les liens */
 }

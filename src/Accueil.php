@@ -39,8 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Liste des cartes</title>
     <link rel="stylesheet" type="text/css" href="Accueil.css">
-    <title>Liste des cartes</title>
-    <link rel="stylesheet" type="text/css" href="Accueil.css">
     <script>
     // JavaScript to display alert if a card is deleted
     window.onload = function() {
@@ -53,9 +51,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 <header>
-    <h1>Ajouter une carte</h1>
-    <a href="Ajouter.php">Ajouter</a> <!-- Link to accueil.php -->
-    <a href="displayUsers.php">Liste des users</a> <!-- Link to displayUsers.php -->
+<img src="https://upload.wikimedia.org/wikipedia/fr/a/a5/Yu-Gi-Oh_Logo.JPG" alt="Logo" class="logo">
+<nav>
+    <a href="Ajouter.php">
+        <img src="https://www.play-in.com/images/YGO-Back-JP.png" alt="Ajouter" style="width: 40px; height: auto;">
+    </a> <!-- Lien vers Ajouter.php avec image miniature -->
+    <a href="displayUsers.php">
+        <img src="https://previews.123rf.com/images/graphicstudiomh/graphicstudiomh2012/graphicstudiomh201200090/160799586-ic%C3%B4ne-ou-logo-de-signe-de-gestion-des-utilisateurs-concept-de-param%C3%A8tres-de-compte-illustration-de.jpg" alt="Liste des utilisateurs" style="width: 40px; height: auto;">
+    </a> <!-- Lien vers displayUsers.php avec image miniature -->
+</nav>
+
+
 </header>
 <h1>Liste des cartes</h1>
 <table>
@@ -94,10 +100,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo '<td><img src="' . htmlspecialchars($card['image_url']) . '" alt="Card Image" width="100"></td>';
             echo '<td>
                     <form method="POST" action="">
-                    <a href="modifier.php?cardId=' . $card['id'] . '">Modifier</a>
+                    <a href="modifier.php?cardId=' . $card['id'] . '">
+                    <img src="https://cdn-icons-png.flaticon.com/512/84/84380.png" alt="Modifier" style="width: 40px; height: auto;">
+                    </a>
                         <form method="POST" action="" style="display:inline;">
                         <input type="hidden" name="cardId" value="' . $card['id'] . '">
-                        <button type="submit">Supprimer</button>
+                        <button type="submit">
+                        <img src="https://cdn-icons-png.flaticon.com/512/6861/6861362.png" alt="" style="width: 40px; height: auto;">
+                        </button>
                     </form>
                   </td>';
             echo '</tr>';
