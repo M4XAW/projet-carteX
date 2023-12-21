@@ -156,53 +156,6 @@ app.post('/api/card/create', async (req, res) => {
         }
     }
 });
-app.put('/api/card/update', async (req, res) => {
-    let conn;
-    try {
-        const token = req.headers.authorization.split(' ')[1];
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decoded.userId;
-        const cardId = req.params.cardId;
-
-        conn = await pool.getConnection();
-        await conn.beginTransaction();
-
-        // Check if the card belongs to the user
-        const userOwnsCard = await conn.query("SELECT id FROM deck WHERE user_id = ? AND card_id = ?", [userId, cardId]);
-
-        if (userOwnsCard.length === 0) {
-            return res.status(403).json({ success: false, message: "Vous n'avez pas la permission de modifier cette carte." });
-        }
-
-        // Update the card in the 'cards' table
-        const updateCardSql = "UPDATE cards SET name = ?, type = ?, description = ?, race = ?, archetype = ?, set_name = ?, set_rarity = ?, set_price = ?, image_url = ? WHERE id = ?";
-        const cardValues = [
-            req.body.name,
-            req.body.type,
-            req.body.description,
-            req.body.race,
-            req.body.archetype,
-            req.body.set_name,
-            req.body.set_rarity,
-            req.body.set_price,
-            req.body.image_url,
-            cardId
-        ];
-
-        await conn.query(updateCardSql, cardValues);
-
-        await conn.commit();
-        res.json({ success: true, message: "Carte modifiée avec succès" });
-    } catch (err) {
-        await conn.rollback();
-        console.error(err);
-        res.status(500).send('Erreur lors de la modification des données');
-    } finally {
-        if (conn) {
-            conn.release();
-        }
-    }
-});
 
 app.post('/api/login', async (req, res) => {
     let conn;
@@ -280,6 +233,54 @@ app.post('/api/signup', async (req, res) => {
         res.status(500).send('Erreur serveur');
     } finally {
         if (conn) conn.release();
+    }
+});
+
+app.put('/api/card/update/:id', async (req, res) => {
+    let conn;
+    try {
+        const token = req.headers.authorization.split(' ')[1];
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        const userId = decoded.userId;
+        const cardId = req.params.id;
+
+        conn = await pool.getConnection();
+        await conn.beginTransaction();
+
+        // Vérifier si l'utilisateur possède la carte
+        const userOwnsCard = await conn.query("SELECT id FROM deck WHERE user_id = ? AND card_id = ?", [userId, cardId]);
+
+        if (userOwnsCard.length === 0) {
+            return res.status(403).json({ success: false, message: "Vous n'avez pas la permission de modifier cette carte." });
+        }
+
+        // Mettre à jour la carte
+        const updateCardSql = "UPDATE cards SET name = ?, type = ?, description = ?, race = ?, archetype = ?, set_name = ?, set_rarity = ?, set_price = ?, image_url = ? WHERE id = ?";
+        const cardValues = [
+            req.body.name,
+            req.body.type,
+            req.body.description,
+            req.body.race,
+            req.body.archetype,
+            req.body.set_name,
+            req.body.set_rarity,
+            req.body.set_price,
+            req.body.image_url,
+            cardId
+        ];
+
+        await conn.query(updateCardSql, cardValues);
+
+        await conn.commit();
+        res.json({ success: true, message: "Carte modifiée avec succès" });
+    } catch (err) {
+        await conn.rollback();
+        console.error(err);
+        res.status(500).send('Erreur lors de la modification des données');
+    } finally {
+        if (conn) {
+            conn.release();
+        }
     }
 });
 

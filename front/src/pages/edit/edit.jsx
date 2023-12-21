@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios"; // Assurez-vous d'installer axios avec `npm install axios`
 import "./edit.scss";
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { useAuth } from '../../auth/authContext';
 
 export default function Edit() {
     const { token } = useAuth();
+    const { id } = useParams();
     const navigate = useNavigate();
 
     const [card, setCard] = useState({
@@ -32,11 +34,12 @@ export default function Edit() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/api/card/create', card, {
+            const response = await axios.put(`http://localhost:8000/api/card/update/${id}`, card, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
+
             console.log(response.data);
             navigate('/cards/user');
         } catch (error) {
