@@ -10,7 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cardId = $_POST['cardId'];
     $card = new Card(); // Supprimez le deuxième point-virgule ici
     $card = $cardManager->getCardById($cardId);
-    $card->setName($_POST['name']);
     $card->setType($_POST['type']);
     $card->setFrame_Type($_POST['frame_type']);
     $card->setDescription($_POST['description']);
@@ -57,7 +56,7 @@ if ($card instanceof Card) {
         <form method="post" action="modifier.php">
             <label for="name">Nom de la carte:</label>
             <input type="hidden" name="cardId" value="<?php echo $cardId; ?>">
-            <input type="text" name="name" id="name" value="<?php echo $card->getName(); ?>" required><br><br>
+            <h1><?php echo $card->getName(); ?></h1>
             <input type="text" name="type" id="type" value="<?php echo $card->getType(); ?>" required><br><br>
             <input type="text" name="description" id="description" value="<?php echo $card->getDescription(); ?>" required><br><br>
             <input type="text" name="race" id="race" value="<?php echo $card->getRace(); ?>" required><br><br>
