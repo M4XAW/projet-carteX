@@ -63,3 +63,8 @@ Pour tester l'application, vous pouvez utiliser les identifiants suivants :
 - Email : `admin@admin.com`
 - Mot de passe : `adminadmin`
 
+
+## Auteur
+- stiles667 : ilyass elyamani
+- Maxence Picault :M4XAW
+- yozo37 : Yohan ZOZOR
