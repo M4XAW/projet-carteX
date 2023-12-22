@@ -13,29 +13,28 @@ export default function Cards() {
     useEffect(() => {
         const fetchCards = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/cards/user', {
+                const response = await axios.get('http://localhost:8000/api/cards/user', { // Requête GET pour récupérer les cartes de l'utilisateur
                     headers: {
-                        Authorization: `Bearer ${token}`
+                        Authorization: `Bearer ${token}` // Ajout du token dans les headers
                     }
                 });
-                setCards(response.data);
-                console.log(token)
+                setCards(response.data); // Mise à jour de l'état cards
             } catch (error) {
                 console.error('Erreur lors de la récupération des cartes de l\'utilisateur:', error);
                 setError(error);
             } finally {
-                setIsLoading(false);
+                setIsLoading(false); // Fin du chargement
             }
         };
 
-        fetchCards();
+        fetchCards(); // Appel de la fonction fetchCards
     }, [token]);
 
-    const handleDelete = async (cardId) => {
+    const handleDelete = async (cardId) => { // Fonction de suppression d'une carte
         try {
-            const response = await axios.delete(`http://localhost:8000/api/card/delete/${cardId}`);
+            const response = await axios.delete(`http://localhost:8000/api/card/delete/${cardId}`); // Requête DELETE pour supprimer une carte
     
-            if (response.status === 204) {
+            if (response.status === 204) { // Si la carte a bien été supprimée
                 console.log('Carte supprimée avec succès');
     
                 // Mettre à jour l'état pour enlever la carte supprimée
@@ -48,7 +47,7 @@ export default function Cards() {
         }
     };
 
-    if (isLoading) {
+    if (isLoading) { 
         return <p>Chargement...</p>;
     }
 
@@ -63,7 +62,7 @@ export default function Cards() {
                 <Link to="/creation">Créer une carte</Link>
             </div>
             <div className="cards">
-                {cards.length > 0 ? (
+                {cards.length > 0 ? ( // Si l'utilisateur a des cartes
                     cards.map(card => (
                         <div key={card.id} className="card">
                                 <img src={card.image_url} alt={card.name} />

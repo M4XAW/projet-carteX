@@ -8,10 +8,10 @@ import { useAuth } from '../../auth/authContext';
 
 export default function Edit() {
     const { token } = useAuth();
-    const { id } = useParams();
-    const navigate = useNavigate();
+    const { id } = useParams(); // Récupérez l'id de la carte dans l'URL
+    const navigate = useNavigate(); // Initialisez le hook navigate
 
-    const [card, setCard] = useState({
+    const [card, setCard] = useState({ // Initialisez l'état de la carte avec les valeurs de la carte
         name: "",
         type: "",
         description: "",
@@ -23,7 +23,7 @@ export default function Edit() {
         image_url: "",
     });
 
-    const handleChange = (event) => {
+    const handleChange = (event) => { // Fonction de mise à jour de l'état de la carte
         const { name, value } = event.target;
         setCard((prevCard) => ({
             ...prevCard,
@@ -31,17 +31,17 @@ export default function Edit() {
         }));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event) => { // Fonction de soumission du formulaire
         event.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:8000/api/card/update/${id}`, card, {
+            const response = await axios.put(`http://localhost:8000/api/card/update/${id}`, card, { // Requête PUT pour mettre à jour la carte
                 headers: {
-                    Authorization: `Bearer ${token}`
+                    Authorization: `Bearer ${token}` // Ajout du token dans les headers
                 }
             });
 
             console.log(response.data);
-            navigate('/cards/user');
+            navigate('/cards/user'); // Redirection vers la page des cartes de l'utilisateur
         } catch (error) {
             console.error("Erreur lors de la création de la carte", error);
         }
@@ -114,7 +114,7 @@ export default function Edit() {
             onChange={handleChange}
             placeholder="Nom image_url"
             />
-            <button className="buttonValid" type="submit">Créer la Carte</button>
+            <button className="buttonValid" type="submit">Modifier</button>
           </form>
         </div>
     );

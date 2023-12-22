@@ -17,18 +17,18 @@ import { useAuth } from "./auth/authContext";
 
 function App() {
   const { isLoggedIn, user } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état et aux fonctions de connexion/déconnexion
-  const isAdmin = user && (user.username === 'admin' || user.id === 1);
+  const isAdmin = user && (user.username === 'admin' || user.id === 1); // Vérifiez si l'utilisateur est admin
 
   return (
     <div className="App">
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/card/:id" element={<Card />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           {isLoggedIn && ( // Affichez les routes protégées uniquement si l'utilisateur est authentifié
             <>
-              <Route path="/card/:id" element={<Card />} />
               <Route path="/cards/user" element={<Cards />} />
               <Route path="/creation" element={<Creation />} />
               <Route path="/edit/:id" element={<Edit />} />

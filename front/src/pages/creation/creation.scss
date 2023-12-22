@@ -32,6 +32,32 @@
             }
         }
 
+        .imageUrlContainer {
+            display: flex;
+            gap: 1.5vh;
+
+            .cardGenerate {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 15%;
+                font-size: 1.6vh;
+                font-weight: 400;
+                padding: 1vh 2vh;
+                outline: none;
+                color: var(--white);
+                background-color: var(--dark-black);
+                border-radius: 1vh;
+                border: var(--border);
+                transition: all 0.3s ease;
+            
+                &:hover {
+                    cursor: pointer;
+                    border-color: var(--grey);
+                }
+            }
+        }
+
         .buttonValid {
             height: 5vh;
             width: 20%;

@@ -8,8 +8,9 @@ import { useAuth } from '../../auth/authContext';
 export default function Creation() {
   const { token } = useAuth();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const [card, setCard] = useState({
+  const [card, setCard] = useState({ // Initialisation de l'état card
     name: "",
     type: "",
     description: "",
@@ -21,9 +22,9 @@ export default function Creation() {
     image_url: "",
   });
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setCard((prevCard) => ({
+  const handleChange = (event) => { // Fonction de mise à jour de l'état card
+    const { name, value } = event.target; // Récupération du nom et de la valeur de l'input
+    setCard((prevCard) => ({ // Mise à jour de l'état card
       ...prevCard,
       [name]: value,
     }));
@@ -31,20 +32,30 @@ export default function Creation() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setErrorMessage(""); // Réinitialisez le message d'erreur
     try {
       const response = await axios.post('http://localhost:8000/api/card/create', card, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}` // Ajout du token dans les headers
         }
       });
-      console.log(response.data);
-      navigate('/cards/user');
+      if (response.data.success) {
+        console.log(response.data);
+        navigate('/cards/user');
+      } else {
+        // Gérer le cas où la carte existe déjà
+        setErrorMessage(response.data.message);
+      }
     } catch (error) {
+      if (error.response && error.response.data) {
+        setErrorMessage(error.response.data.message);
+      } else {
+        setErrorMessage("Une erreur inconnue s'est produite.");
+      }
       console.error("Erreur lors de la création de la carte", error);
     }
   };
   
-
   return (
     <div className="creationPage">
       <h2>Création</h2>
@@ -105,7 +116,7 @@ export default function Creation() {
           onChange={handleChange}
           placeholder="Nom set_price"
         />
-        <div>
+        <div className="imageUrlContainer">
           <input
             type="text"
             name="image_url"
@@ -113,8 +124,9 @@ export default function Creation() {
             onChange={handleChange}
             placeholder="Nom image_url"
           />
-          <a href="https://www.cardmaker.net/yugioh/" target="_blank" rel="noreferrer">Générer l'image de la carte</a>
+          <a className="cardGenerate" href="https://www.cardmaker.net/yugioh/" target="_blank" rel="noreferrer">Générer l'image de la carte</a>
         </div>
+        {errorMessage && <div className="incorrect">{errorMessage}</div>}
         <button className="buttonValid" type="submit">Créer la Carte</button>
       </form>
     </div>

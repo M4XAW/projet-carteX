@@ -7,7 +7,7 @@ export default function Header() {
   const { isLoggedIn, user, logout } = useAuth(); // Utilisez le hook useAuth pour accéder à l'état et aux fonctions de connexion/déconnexion
   const navigate = useNavigate();
   
-  const handleLogout = () => {
+  const handleLogout = () => { 
     logout();
     navigate("/login");
   };
@@ -35,7 +35,7 @@ export default function Header() {
             </>
           ) : (
             <>
-              {user && user.username ? (
+              {user && user.username ? ( // Vérifiez que l'utilisateur existe et que le nom d'utilisateur est défini
                 <li>
                   <small className="username">Connecté en tant que {user.username}</small>
                 </li>
