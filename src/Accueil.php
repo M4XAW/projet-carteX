@@ -3,11 +3,10 @@ require_once('Card.php');
 require_once('CardManager.php');
 require_once('config.php');
 
-$cardManager = new CardManager($pdo); // Correct instantiation
+$cardManager = new CardManager($pdo); // on instancie un objet CardManager
 
 try {
-    $cards = $cardManager->recupererToutesLesCartes(); // Fetch all cards
-
+    $cards = $cardManager->recupererToutesLesCartes(); // on récupère toutes les cartes
 } catch (PDOException $e) {
     echo "Erreur PDO lors de l'affichage des cartes : " . $e->getMessage();
 } catch (Exception $e) {
@@ -16,7 +15,7 @@ try {
 
 
 
-$cardDeleted = false; // Flag to track if a card was deleted
+$cardDeleted = false; // Ici on initialise une variable qui servira à afficher une alerte si une carte est supprimée
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cardId = $_POST['cardId'];
@@ -24,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     try {
         $cardManager->deleteCard($cardId);
-        $cardDeleted = true; // Set flag to true if card is deleted successfully
+        $cardDeleted = true; // Ici on met la variable à true si la carte est supprimée
     } catch (PDOException $e) {
         echo "Erreur PDO lors de la suppression de la carte : " . $e->getMessage();
     } catch (Exception $e) {
@@ -40,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Liste des cartes</title>
     <link rel="stylesheet" type="text/css" href="Accueil.css">
     <script>
-    // JavaScript to display alert if a card is deleted
+    // Ici on affiche une alerte si une carte est supprimée
     window.onload = function() {
         <?php if ($cardDeleted) : ?>
             alert('Card deleted successfully');
@@ -81,7 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </thead>
     <tbody>
         <?php
+        // Ici on affiche toutes les cartes
         foreach ($cards as $card) {
+            // On affiche chaque carte dans une ligne du tableau
             echo '<tr>';
             echo '<td>' . htmlspecialchars($card['name']) . '</td>';
             echo '<td>' . htmlspecialchars($card['type']) . '</td>';

@@ -13,7 +13,7 @@ class Card {
     private $set_price;
     private $image_url;
 
-
+// ici on a un constructeur qui prend en paramètre les attributs de la classe
     public function __construct(
         $name = "",
         $type = "",
@@ -43,6 +43,8 @@ class Card {
     }
     }
     
+
+    // ici on a des getters et des setters pour chaque attribut de la classe
 
     public function getname() {
         return $this->name;

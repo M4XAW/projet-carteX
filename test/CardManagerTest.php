@@ -34,42 +34,42 @@ class CardManagerTest extends TestCase
         $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    // public function testRecupererToutesLesCartes() {
-    //     // Récupérer toutes les cartes
-    //     $cards = $this->cardManager->recupererToutesLesCartes();
+    public function testRecupererToutesLesCartes() {
+        // Récupérer toutes les cartes
+        $cards = $this->cardManager->recupererToutesLesCartes();
 
-    //     // Vérifier que le tableau retourné n'est pas vide
-    //     $this->assertNotEmpty($cards, "Le tableau de cartes ne devrait pas être vide");
-    // }
+        // Vérifier que le tableau retourné n'est pas vide
+        $this->assertNotEmpty($cards, "Le tableau de cartes ne devrait pas être vide");
+    }
 
-    // public function testAddCard() {
-    //     // Créer une carte d'exemple
-    //     $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
+    public function testAddCard() {
+        // Créer une carte d'exemple
+        $card = new Card("Exemple Nom", "Exemple Type", "Exemple Frame Type", "Exemple Description", "Exemple Race", "Exemple Archetype", "Exemple Set Name", "Exemple Set Code", "Exemple Set Rarity", "RC", 15.99, "Exemple Image URL");
 
-    //     // Insérer la carte dans la base de données
-    //     $lastInsertId = $this->cardManager->addCard($card);
+        // Insérer la carte dans la base de données
+        $lastInsertId = $this->cardManager->addCard($card);
 
-    //     // Vérifier que l'ID retourné n'est pas null
-    //     $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
+        // Vérifier que l'ID retourné n'est pas null
+        $this->assertNotNull($lastInsertId, "L'ID inséré ne devrait pas être null");
 
-    // }
+    }
 
 
-    // public function testDeleteCard() {
-    // //     // Assume you have an existing card with an ID
-    //     $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
+    public function testDeleteCard() {
+    //     // Assume you have an existing card with an ID
+        $cardIdToDelete = 8; // Replace with the ID of the card you wish to delete
     
-    //     // Ensure the card exists before attempting to delete
-    //     $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
-    //     $stmt->execute([$cardIdToDelete]);
-    //     $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
-    //     $this->assertNotNull($existingCard, 'Card should exist before deletion');
+        // Ensure the card exists before attempting to delete
+        $stmt = $this->pdo->prepare("SELECT * FROM cards WHERE id = ?");
+        $stmt->execute([$cardIdToDelete]);
+        $existingCard = $stmt->fetch(PDO::FETCH_ASSOC);
+        $this->assertNotNull($existingCard, 'Card should exist before deletion');
     
-    //     // Call the deleteCard method
-    //     $this->cardManager->deleteCard($cardIdToDelete);
+        // Call the deleteCard method
+        $this->cardManager->deleteCard($cardIdToDelete);
     
        
-    // }
+    }
 
     public function testUpdateCard() {
         $cardToUpdateId = 100213002;

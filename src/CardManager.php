@@ -60,6 +60,7 @@ class CardManager {
     }
 
     public function addCard(Card $card) {
+        // Vérifier si la carte existe déjà dans la base de données
         if (!is_numeric($card->getset_price())) {
             throw new InvalidArgumentException("Le prix de l'ensemble doit être un nombre.");
         }
@@ -83,8 +84,7 @@ class CardManager {
                 :set_price, :image_url
             )
         ");
-    
-        // Bind the parameters with values from the Card object
+    // Associer les valeurs aux paramètres dans la requête
         $stmt->bindValue(':name', $card->getName());
         $stmt->bindValue(':type', $card->getType());
         $stmt->bindValue(':description', $card->getDescription());

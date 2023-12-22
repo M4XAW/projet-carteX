@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <label for="image_url">URL de l'image:</label>
         <input type="text" name="image_url" id="image_url" required><br><br>
-        <h3>Aide pour l'image  : <a href="https://www.yugiohcardmaker.net/"><img src="https://e7.pngegg.com/pngimages/684/303/png-clipart-computer-icons-chain-hyperlink-symbol-connect-text-technic.png" alt="Ajouter" style="width: 40px; height: 20px;"></a></h2>
+        <h3>Aide pour l'image  : <a href="https://www.yugiohcardmaker.net/"target="_blank" rel="noreferrer"><img src="https://e7.pngegg.com/pngimages/684/303/png-clipart-computer-icons-chain-hyperlink-symbol-connect-text-technic.png" alt="Ajouter" style="width: 40px; height: 20px;"></a></h2>
         <br><br>
 
         <input type="submit" value="Ajouter la carte">

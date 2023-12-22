@@ -1,14 +1,13 @@
 <?php
-require_once('config.php'); // Include your database configuration file
+require_once('config.php'); //ici on fait appel au fichier config.php
 require_once('userManager.php');
 
-$userManager = new userManager($pdo); // Assuming you have a UserManager class
-$allUsers = $userManager->getAllUsers(); // Method to get all users
+$userManager = new userManager($pdo);  //ici on fait appel au fichier userManager.php
+$allUsers = $userManager->getAllUsers(); 
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
-    $deleteUserId = $_POST['deleteUserId'];
-    $userManager->deleteUser($deleteUserId); // Delete the selected user
-    // Optionally, you can add a success message here
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) { // On vérifie que la méthode de la requête est bien POST et que l'ID de la carte à supprimer n'est pas vide
+    $deleteUserId = $_POST['deleteUserId']; // On récupère l'ID de la carte à supprimer
+    $userManager->deleteUser($deleteUserId); // On supprime la carte de la base de données
 }
 ?>
 
@@ -35,15 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Password</th>
-                <th>Action</th> <!-- New column for the delete button -->
+                <th>Action</th> 
             </tr>
-            <?php foreach ($allUsers as $user): ?>
+            <?php foreach ($allUsers as $user): ?> 
+  
                 <tr>
+                    
                     <td><?php echo htmlspecialchars($user['id']); ?></td>
                     <td><?php echo htmlspecialchars($user['username']); ?></td>
                     <td><?php echo htmlspecialchars($user['email']); ?></td>
                     <td><?php echo htmlspecialchars($user['password']); ?></td>
                     <td>
+                    <!-- ici on a un bouton pour supprimer un utilisateur -->
                         <form method="POST" action="">
                             <input type="hidden" name="deleteUserId" value="<?php echo $user['id']; ?>">
                             <button type="submit" onclick="return confirm('Are you sure you want to delete this user?')" style="padding: 0; border: none; background: none;">
@@ -52,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
                             </button>
                         </form>
                     </td>
-<!-- ... -->
 
                 </tr>
             <?php endforeach; ?>

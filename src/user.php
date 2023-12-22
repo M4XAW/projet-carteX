@@ -7,7 +7,7 @@ public $id;
 public $username;
 public $email;
 public $password;
-
+// ici on a un constructeur qui prend en paramètre les attributs de la classe
 public function __construct($id, $username, $email, $password) {
     $this->id = $id;
     $this->username = $username;
@@ -15,6 +15,7 @@ public function __construct($id, $username, $email, $password) {
     $this->password = $password;
 
 }
+// ici on a des getters et des setters pour chaque attribut de la classe
 public function getId() {
     return $this->id;
 
