@@ -51,3 +51,15 @@ Assurez-vous d'avoir Node.js et npm installés sur votre système pour gérer le
 - **sass** : `npm install sass`
 - **jwt-decode** : `npm install jwt-decode`
 
+## Informations de Connexion
+
+Pour tester l'application, vous pouvez utiliser les identifiants suivants :
+
+### Utilisateur Standard
+- Email : `test@test.com`
+- Mot de passe : `test1234`
+
+### Administrateur
+- Email : `admin@admin.com`
+- Mot de passe : `adminadmin`
+
