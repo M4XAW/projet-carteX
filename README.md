@@ -26,3 +26,28 @@ Ce projet "CarteX" est une plateforme de gestion de cartes Yu-Gi-Oh! développé
 4. Suivez les instructions spécifiques dans chaque branche pour configurer et exécuter le frontend et le backend du projet.
 
 N'oubliez pas de consulter le fichier README dans chaque branche pour des instructions spécifiques à cette partie du projet.
+
+# Dépendances
+
+Pour assurer le bon fonctionnement de l'API REST et du frontend React de CarteX, certaines dépendances doivent être installées. Voici les détails des dépendances nécessaires pour chaque partie du projet.
+
+## Dépendances Backend (NodeJS)
+
+Assurez-vous d'avoir NodeJS installé sur votre système. Voici les principales dépendances à installer pour le backend :
+
+- **express** : `npm install express`
+- **mariadb** : `npm install mariadb`
+- **bcrypt** : `npm install bcrypt`
+- **jsonwebtoken** : `npm install jsonwebtoken`
+- **axios** : `npm install axios`
+- **dotenv** : `npm install dotenv`
+- **cors** : `npm install cors`
+
+## Dépendances Frontend (React)
+
+Assurez-vous d'avoir Node.js et npm installés sur votre système pour gérer les dépendances du projet React. Voici les principales dépendances à installer pour le frontend :
+
+- **react-router-dom** : `npm install react-router-dom`
+- **sass** : `npm install sass`
+- **jwt-decode** : `npm install jwt-decode`
+
