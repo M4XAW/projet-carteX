@@ -8,6 +8,7 @@ $cardManager = new CardManager($pdo); // Instanciation correcte
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
+        // Création d'un objet Card avec les données du formulaire
         $card = new Card();
         $card->setName($_POST['name']);
         $card->setType($_POST['type']);
@@ -18,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $card->setSet_Rarity($_POST['set_rarity']);
         $card->setSet_Price($_POST['set_price']);
         $card->setImage_URL($_POST['image_url']);
-
+// Vérification de l'existence de la carte dans la base de données
         $existingCard = $cardManager->getCardByName($card->getName());
 
         if ($existingCard) {
@@ -58,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>Ajouter une carte</h1>
 
     </header>
-        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>"><!-- Assurez-vous que l'action pointe vers le nom de ce fichier -->
+        <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
         
         <label for="name">Nom de la carte:</label>
         <input type="text" name="name" id="name" required><br><br>
