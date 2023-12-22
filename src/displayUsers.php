@@ -21,10 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['deleteUserId'])) {
 <header>
     <h1>Liste des utilisateurs</h1>
     <a href="Accueil.php">
-        <img src="https://cdn-icons-png.flaticon.com/512/2948/2948025.png" alt="Ajouter" style="width: 40px; height: auto;">
-    </a> <!-- Lien vers Ajouter.php avec image miniature -->
-    <a href="Ajouter.php">
-        <img src="https://www.play-in.com/images/YGO-Back-JP.png" alt="Ajouter" style="width: 40px; height: auto;">
+        <img src="https://as2.ftcdn.net/v2/jpg/02/38/84/13/1000_F_238841329_wWu1FSAvvtdE5GYUEEM8V7q3SqdamefY.jpg" alt="Ajouter" style="width: 40px; height: auto;">
     </a> 
 </header>
 <body>

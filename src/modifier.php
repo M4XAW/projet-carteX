@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Gérer la mise à jour de la carte ici
     $cardId = $_POST['cardId'];
     $card = new Card(); // Supprimez le deuxième point-virgule ici
+    $card = $cardManager->getCardById($cardId);
     $card->setName($_POST['name']);
     $card->setType($_POST['type']);
     $card->setFrame_Type($_POST['frame_type']);
@@ -55,6 +56,7 @@ if ($card instanceof Card) {
     <?php if ($card): ?>
         <form method="post" action="modifier.php">
             <label for="name">Nom de la carte:</label>
+            <input type="hidden" name="cardId" value="<?php echo $cardId; ?>">
             <input type="text" name="name" id="name" value="<?php echo $card->getName(); ?>" required><br><br>
             <input type="text" name="type" id="type" value="<?php echo $card->getType(); ?>" required><br><br>
             <input type="text" name="description" id="description" value="<?php echo $card->getDescription(); ?>" required><br><br>
@@ -64,7 +66,7 @@ if ($card instanceof Card) {
             <input type="text" name="set_rarity" id="set_rarity" value="<?php echo $card->getSet_Rarity(); ?>" required><br><br>
             <input type="number" name="set_price" id="set_price" value="<?php echo $card->getSet_Price(); ?>" required><br><br>
             <input type="text" name="image_url" id="image_url" value="<?php echo $card->getImage_URL(); ?>" required><br><br>
-
+            <h3>Aide pour l'image  : <a href="https://www.yugiohcardmaker.net/"><img src="https://e7.pngegg.com/pngimages/684/303/png-clipart-computer-icons-chain-hyperlink-symbol-connect-text-technic.png" alt="Ajouter" style="width: 40px; height: 20px;"></a></h2>
 
            
 

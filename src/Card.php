@@ -42,7 +42,7 @@ class Card {
         $this->Image_URL = $Image_URL;
     }
     }
-
+    
 
     public function getname() {
         return $this->name;
